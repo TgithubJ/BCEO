@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="chuntaejin.example.com.mybceo.ProductActivity">
+
+    <FrameLayout
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/sell1"
+        android:id="@+id/frameLayout4"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"></FrameLayout>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton3"
+        android:background="@drawable/arrowright"
+        android:layout_alignBottom="@+id/frameLayout4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="66dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="176dp" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameLayout4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="#000000"
+        android:id="@+id/tableLayout2">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:layout_margin="1dp">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Seller:"
+                android:id="@+id/textView10"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Sean"
+                android:id="@+id/textView14"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:layout_margin="1dp">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Title:"
+                android:id="@+id/textView11"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Sony Toaster"
+                android:id="@+id/textView15"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:layout_margin="1dp">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Price:"
+                android:id="@+id/textView12"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="$14"
+                android:id="@+id/textView16"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:layout_margin="1dp">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Waiting:"
+                android:id="@+id/textView13"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="3"
+                android:id="@+id/textView17"
+                android:layout_column="1" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="500dp"
+        android:layout_height="150dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="I have bought this toast 10 years ago."
+        android:id="@+id/textView18"
+        android:layout_marginTop="20dp"
+        android:background="#fefefe"
+        android:layout_below="@+id/tableLayout2"
+        android:layout_toLeftOf="@+id/imageButton3"
+        android:layout_toStartOf="@+id/imageButton3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buy !"
+        android:id="@+id/button2"
+        android:layout_below="@+id/textView18"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton4"
+        android:background="@drawable/arrowrleft"
+        android:layout_alignTop="@+id/imageButton3"
+        android:layout_toLeftOf="@+id/textView18"
+        android:layout_toStartOf="@+id/textView18" />
+
+</RelativeLayout>
