@@ -1,24 +1,38 @@
 package com.example.chloe.bceo.view;
 
-import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.chloe.bceo.R;
 
-public class MainActivity extends Activity {
+public class VerifyActivity extends AppCompatActivity {
+
+    private Button verify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_verify);
+
+        verify = (Button) findViewById(R.id.verify_button);
+
+        verify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verifyEmail();
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_verify, menu);
         return true;
     }
 
@@ -35,5 +49,12 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void verifyEmail() {
+        sendVerificationEmail();
+
+        Intent intent = new Intent(this, GroupsActivity.class);
+        this.startActivity(intent);
     }
 }
