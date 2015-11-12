@@ -1,5 +1,6 @@
 package com.example.chloe.bceo.view;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,11 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import com.example.chloe.bceo.R;
 
-public class GroupsActivity extends AppCompatActivity {
+public class GroupsActivity extends Activity {
     private ImageButton cmu;
+
+    private Spinner future_group;
     private Button join;
 
     @Override
@@ -21,6 +25,8 @@ public class GroupsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_groups);
 
         cmu = (ImageButton) findViewById(R.id.CMU);
+
+        future_group = (Spinner) findViewById(R.id.group_spinner);
         join = (Button) findViewById(R.id.join_group);
 
         cmu.setOnClickListener(new View.OnClickListener() {

@@ -22,6 +22,7 @@
                 <Spinner
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:entries="@array/group_list"
                     android:id="@+id/group_spinner" />
 
                 <Button
@@ -37,6 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/CMU"
-            android:src="@drawable/CMU" />
+            android:src="@drawable/cmu" />
     </LinearLayout>
 </RelativeLayout>

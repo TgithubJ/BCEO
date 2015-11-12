@@ -7,7 +7,13 @@
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_groups">GroupsActivity</string>
 
-
+    <string name="action_sign_up">Sign Up</string>
     <string name="verify_email_text">Enter valid group email address</string>
+    <string name="title_activity_browse">BrowseActivity</string>
+
+
+    <string-array name="group_list">
+    <item>CMU</item>
+    </string-array>
 
 </resources>
