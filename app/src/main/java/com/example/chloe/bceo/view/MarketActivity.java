@@ -2,33 +2,28 @@ package com.example.hsianglin.bceoapp.view.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hsianglin.bceoapp.R;
 
-
-public class BrowseActivity extends AppCompatActivity {
+public class MarketActivity extends AppCompatActivity {
 
     // references to our images
     private Integer[] mThumbIds = {
-            R.drawable.androider_01,
             R.drawable.androider_02,
-            R.drawable.androider_03,
             R.drawable.androider_04,
-            R.drawable.androider_05,
             R.drawable.androider_06,
-            R.drawable.androider_07,
             R.drawable.androider_08,
-            R.drawable.androider_09,
 //            R.drawable.androider_10,
 //            R.drawable.androider_11,
 //            R.drawable.androider_12,
@@ -93,12 +88,21 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_browse);
+        setContentView(R.layout.activity_market);
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new MyAdapter(this));
         gridview.setOnItemClickListener(new ItemClickListener());
 
+        ImageView iv = (ImageView) findViewById(R.id.imageView_back_arrow);
+
+        iv.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), BrowseActivity.class);
+                startActivityForResult(myIntent, 0);
+            }
+        });
     }
     public class ItemClickListener implements AdapterView.OnItemClickListener {
         @Override
@@ -110,4 +114,3 @@ public class BrowseActivity extends AppCompatActivity {
         }
     }
 }
-
