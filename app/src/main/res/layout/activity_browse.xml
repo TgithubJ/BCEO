@@ -1,5 +1,40 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
-    android:name="com.example.chloe.bceo.view.BrowseActivityFragment"
-    tools:layout="@layout/fragment_browse" android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+<GridView
+    android:id="@+id/gridview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:numColumns="3"
+    android:verticalSpacing="10dp"
+    android:horizontalSpacing="10dp"
+    android:columnWidth="90dp"
+    android:stretchMode="columnWidth"
+    android:gravity="center"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="77dp" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.example.hsianglin.bceoapp.view.view.FragmentBottomMenu"
+        android:id="@+id/fragment"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        tools:layout="@layout/fragment_bottom_menu" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.example.hsianglin.bceoapp.view.view.FragmentSearchBar"
+        android:id="@+id/fragment_search_bar"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        tools:layout="@layout/fragment_search_bar" />
+
+
+</RelativeLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#ffa75d"
+    android:id="@+id/fragment_search_bar">
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editSearch"
+        android:text="Search"
+        android:minWidth="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerCategory"
+        android:layout_alignParentTop="true"
+        android:spinnerMode="dropdown"
+        android:entries="@array/category"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/editSearch" />
+</RelativeLayout>
