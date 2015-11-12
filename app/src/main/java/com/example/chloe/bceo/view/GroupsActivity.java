@@ -13,7 +13,7 @@ import android.widget.Spinner;
 
 import com.example.chloe.bceo.R;
 
-public class GroupsActivity extends Activity {
+public class GroupsActivity extends AppCompatActivity {
     private ImageButton cmu;
 
     private Spinner future_group;

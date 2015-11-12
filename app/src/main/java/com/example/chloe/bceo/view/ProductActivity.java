@@ -1,7 +1,9 @@
-package chuntaejin.example.com.mybceo;
+package com.example.chloe.bceo.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.chloe.bceo.R;
 
 public class ProductActivity extends AppCompatActivity {
 

@@ -1,5 +1,6 @@
-package com.example.hsianglin.bceoapp.view.view;
+package com.example.chloe.bceo.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hsianglin.bceoapp.R;
+import com.example.chloe.bceo.R;
 
 
 public class BrowseActivity extends AppCompatActivity {

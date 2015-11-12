@@ -1,4 +1,4 @@
-package chuntaejin.example.com.mybceo;
+package com.example.chloe.bceo.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.chloe.bceo.R;
 
 /**
  * Created by chuntaejin on 11/11/15.

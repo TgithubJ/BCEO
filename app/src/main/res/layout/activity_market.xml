@@ -23,7 +23,7 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.example.hsianglin.bceoapp.view.view.FragmentBottomMenu"
+        android:name="com.example.chloe.bceo.view.FragmentBottomMenu"
         android:id="@+id/fragment2"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
