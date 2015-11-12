@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -54,6 +55,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private View mProgressView;
     private View mLoginFormView;
 
+    private Button signup;
+    private Button facebook;
+    private Button mEmailSignInButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,11 +80,27 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        signup = (Button) findViewById(R.id.sign_up);
+        signup.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SignUp();
+            }
+        });
+
+        facebook = (Button) findViewById(R.id.facebook);
+        facebook.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginFacebook();
             }
         });
 
@@ -91,6 +112,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         getLoaderManager().initLoader(0, null, this);
     }
 
+    public void SignUp() {
+        Intent intent = new Intent(this, SignupActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void LoginFacebook() {
+        //TODO: loginwithfacebook();
+        Intent intent = new Intent(this, GroupsActivity.class);
+        this.startActivity(intent);
+    }
+
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -98,6 +130,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
+        Intent intent = new Intent(this, GroupsActivity.class);
+        this.startActivity(intent);
+
         if (mAuthTask != null) {
             return;
         }

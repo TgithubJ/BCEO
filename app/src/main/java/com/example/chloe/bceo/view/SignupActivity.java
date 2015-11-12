@@ -1,20 +1,32 @@
 package com.example.chloe.bceo.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.chloe.bceo.R;
 
 public class SignupActivity extends Activity {
 
+    private Button signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        signup = (Button) findViewById(R.id.sign_up_button);
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signUp();
+            }
+        });
     }
 
     @Override
@@ -37,5 +49,11 @@ public class SignupActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void signUp() {
+        //TODO: createAccount();
+        Intent intent = new Intent(this, GroupsActivity.class);
+        this.startActivity(intent);
     }
 }

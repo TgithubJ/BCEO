@@ -53,7 +53,7 @@ public class VerifyActivity extends Activity {
     }
 
     public void verifyEmail() {
-        //sendVerificationEmail();
+        //TODO : sendVerificationEmail();
 
         Intent intent = new Intent(this, GroupsActivity.class);
         this.startActivity(intent);
