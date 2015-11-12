@@ -1,11 +1,9 @@
-package com.example.chloe.bceo.view;
+package com.example.chloe.bceo;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.example.chloe.bceo.R;
 
 public class MainActivity extends Activity {
 
@@ -13,9 +11,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
     }
 
     @Override
@@ -39,7 +34,4 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }
