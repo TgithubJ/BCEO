@@ -1,9 +1,11 @@
-package com.example.chloe.bceo;
+package com.example.chloe.bceo.view;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.chloe.bceo.R;
 
 public class MainActivity extends Activity {
 
