@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,13 +31,6 @@ public class BrowseActivity extends AppCompatActivity {
             R.drawable.androider_07,
             R.drawable.androider_08,
             R.drawable.androider_09,
-//            R.drawable.androider_10,
-//            R.drawable.androider_11,
-//            R.drawable.androider_12,
-//            R.drawable.androider_13,
-//            R.drawable.androider_14,
-//            R.drawable.androider_15,
-//            R.drawable.androider_16
     };
 
     public class MyAdapter extends BaseAdapter {
@@ -100,7 +94,63 @@ public class BrowseActivity extends AppCompatActivity {
         gridview.setAdapter(new MyAdapter(this));
         gridview.setOnItemClickListener(new ItemClickListener());
 
+//        setupBottomMenu();
+
     }
+
+//    public void setupBottomMenu(){
+//        //Button Menu
+//        Button buttonBrowse = (Button) findViewById(R.id.button_browse);
+//        //Action taken when a button is pressed
+//        buttonBrowse.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(v.getContext(), BrowseActivity.class);
+//                startActivity(myIntent);
+//            }
+//        });
+//
+//        Button buttonOrder = (Button) findViewById(R.id.button_order);
+//        //Action taken when a button is pressed
+//        buttonOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(v.getContext(), OrderActivity.class);
+//                startActivity(myIntent);
+//            }
+//        });
+//
+//        Button buttonSell = (Button) findViewById(R.id.button_sell);
+//        //Action taken when a button is pressed
+//        buttonSell.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(v.getContext(), SellActivity.class);
+//                startActivity(myIntent);
+//            }
+//        });
+//
+//        Button buttonGroup = (Button) findViewById(R.id.button_order);
+//        //Action taken when a button is pressed
+//        buttonGroup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(v.getContext(), GroupsActivity.class);
+//                startActivity(myIntent);
+//            }
+//        });
+//
+//        Button buttonMyPage = (Button) findViewById(R.id.button_mypage);
+//        //Action taken when a button is pressed
+//        buttonMyPage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(v.getContext(), MypageActivity.class);
+//                startActivity(myIntent);
+//            }
+//        });
+//    }
+
     public class ItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
