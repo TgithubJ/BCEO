@@ -1,6 +1,6 @@
 .gradle
 .gitignore
-
+*local.properties
 /local.properties
 *.idea
 /.idea/workspace.xml

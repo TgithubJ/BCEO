@@ -8,6 +8,7 @@ public class Product {
     private String pName;
     private float pPrice;
     private int pWaiting;
+
     private String pDescription;
 
     public String getpID() {
