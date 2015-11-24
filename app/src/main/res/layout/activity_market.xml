@@ -44,6 +44,6 @@
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="---- WooJoo Shim&apos;s Market ----" />
+        android:text="---- Woojoo Shim&apos;s Market ----" />
 
 </RelativeLayout>

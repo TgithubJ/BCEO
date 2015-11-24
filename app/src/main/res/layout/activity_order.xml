@@ -43,4 +43,13 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.example.chloe.bceo.view.FragmentBottomMenu"
+        android:id="@+id/fragment5"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        tools:layout="@layout/fragment_bottom_menu" />
 </RelativeLayout>
