@@ -44,22 +44,20 @@ public class SellActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //拍照後顯示圖片
+
         ImageView iv = (ImageView)findViewById(R.id.imagecaptured);
         if (resultCode == RESULT_OK)
         {
-
-            //取出拍照後回傳資料
+            //Extract picture from data
             Bundle extras = data.getExtras();
-            //將資料轉換為圖像格式
+            //Transform data to bitmap
             Bitmap bmp = (Bitmap) extras.get("data");
 
-            //轉換為圖片指定大小
-            //獲得圖片的寬高
+            //Resize pictures
             int width = bmp.getWidth();
             int height = bmp.getHeight();
 
-            //放大為1.2倍
+            //scale factors
             float scaleWidth = (float) 1.7;
             float scaleHeight = (float) 1.7;
 
@@ -69,10 +67,9 @@ public class SellActivity extends AppCompatActivity {
             Bitmap newbm = Bitmap.createBitmap(bmp, 0, 0, width, height, matrix,true);
             iv.setImageBitmap(newbm);
 
-
         }
 
-        //覆蓋原來的Activity
+        //overwrite activity
         super.onActivityResult(requestCode, resultCode, data);
     }
 }
