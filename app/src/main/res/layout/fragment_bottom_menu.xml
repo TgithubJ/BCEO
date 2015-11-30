@@ -5,46 +5,51 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="120dp"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:text="Browse"
         android:id="@+id/button_browse"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="10dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="120dp"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:text="ORDER"
         android:id="@+id/button_order"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/button_browse" />
+        android:layout_toEndOf="@+id/button_browse"
+        android:layout_marginRight="6dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="120dp"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:text="SELL"
         android:id="@+id/button_sell"
-        android:layout_alignBottom="@+id/button_order"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/button_order"
+        android:layout_marginRight="6dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="120dp"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:text="Group"
         android:id="@+id/button_group"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/button_sell" />
+        android:layout_toEndOf="@+id/button_sell"
+        android:layout_marginRight="6dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="120dp"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
         android:text="MyPage"
         android:id="@+id/button_mypage"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toEndOf="@+id/button_group" />
 </RelativeLayout>

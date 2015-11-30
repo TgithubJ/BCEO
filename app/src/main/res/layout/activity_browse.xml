@@ -25,7 +25,8 @@
         android:id="@+id/fragment"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        tools:layout="@layout/fragment_bottom_menu" />
+        tools:layout="@layout/fragment_bottom_menu"
+        android:layout_alignParentEnd="true" />
 
     <fragment
         android:layout_width="wrap_content"

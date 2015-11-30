@@ -1,0 +1,9 @@
+1. Registration (Chloe)
+
+	sign in: remote
+
+	sign up: remote/ local
+
+2. Browse Page (Taejin)
+
+3. Image scroll (Sean)
