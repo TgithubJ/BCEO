@@ -30,35 +30,33 @@
                 android:imeOptions="actionUnspecified" android:inputType="textPassword"
                 android:maxLines="1" android:singleLine="true" />
 
-            <Button android:id="@+id/email_sign_in_button" style="?android:textAppearanceSmall"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" android:text="@string/action_sign_in"
-                android:textStyle="bold" />
-
         </LinearLayout>
     </ScrollView>
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <Button android:id="@+id/email_sign_in_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="@string/action_sign_in"
+                android:textStyle="bold" />
+
             <Button
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign Up"
                 android:id="@+id/sign_up"
                 android:layout_column="1" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign in with Facebook"
-                android:id="@+id/facebook"
-                android:layout_column="5" />
         </TableRow>
 
         <TableRow
@@ -67,7 +65,10 @@
 
         </TableRow>
 
+
     </TableLayout>
+
+
 
 </LinearLayout>
 
