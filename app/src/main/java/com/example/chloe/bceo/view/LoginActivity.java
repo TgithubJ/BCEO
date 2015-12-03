@@ -27,10 +27,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.chloe.bceo.DBLayout.DatabaseConnector;
 import com.example.chloe.bceo.R;
 
 /**
@@ -43,7 +45,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+            "foo@example.com:hello", "bar@example.com:world",
+            "woojoos@sv.cmu.edu:hello"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -305,11 +308,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
+                    Toast.makeText(getApplicationContext(), "Loging in...",Toast.LENGTH_SHORT).show();
                     return pieces[1].equals(mPassword);
                 }
             }
 
             // TODO: register the new account here.
+            //DatabaseConnector remote = new DatabaseConnector(this);
+
             return true;
         }
 
@@ -323,6 +329,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //Intent intent = new Intent(this, GroupsActivity.class);
                 //Activity.startActivity(intent);
             } else {
+                Toast.makeText(getApplicationContext(), "Login failed",Toast.LENGTH_SHORT).show();
+
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
