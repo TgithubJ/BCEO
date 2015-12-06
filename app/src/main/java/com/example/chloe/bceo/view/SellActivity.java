@@ -5,18 +5,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.util.HTTPPost;
+import com.example.chloe.bceo.util.Image64Base;
+
+import org.apache.http.protocol.HTTP;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +35,7 @@ import java.util.ArrayList;
 public class SellActivity extends AppCompatActivity {
     private final static int CAMERA = 66 ;
     private final static int PHOTO = 99 ;
-    private Button button;
+    private Button buttonComfirm;
     private DisplayMetrics mPhone;
     private int imagePos = 0;
     ImageView image_preview;
@@ -53,7 +59,7 @@ public class SellActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell);
-        button = (Button) this.findViewById(R.id.button);
+        buttonComfirm = (Button) this.findViewById(R.id.button);
         Button buttonCamera = (Button) findViewById(R.id.button_camera);
         Button buttonPhoto = (Button) findViewById(R.id.button_upload);
         image_preview = (ImageView) findViewById(R.id.image_product_preview);
@@ -87,19 +93,17 @@ public class SellActivity extends AppCompatActivity {
         });
 
         //Product
-        button.setOnClickListener(
+        buttonComfirm.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        buttonClicked(v);
+                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
+                        saveImageOnServerSide(bd.getBitmap());
+
+//                        startActivity(new Intent(v.getContext(), MypageActivity.class));
                     }
                 }
         );
 
-        //GridView
-    }
-    public void buttonClicked(View view) {
-        // Check values from editTexts
-        startActivity(new Intent(view.getContext(), MypageActivity.class));
     }
 
     @Override
@@ -226,6 +230,15 @@ public class SellActivity extends AppCompatActivity {
                     e.toString(),
                     Toast.LENGTH_LONG).show();
         }
+    }
+
+    void saveImageOnServerSide(Bitmap bm){
+
+        String str64Base = Image64Base.encodeTobase64(bm);
+        HTTPPost.execute(str64Base);
+
+//        Log.d("[64Base]", str64Base);
+//        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
     }
 
 
