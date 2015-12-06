@@ -235,7 +235,7 @@ public class SellActivity extends AppCompatActivity {
     void saveImageOnServerSide(Bitmap bm){
 
         String str64Base = Image64Base.encodeTobase64(bm);
-        HTTPPost.execute(str64Base);
+        HTTPPost.executeImageUpload(str64Base);
 
 //        Log.d("[64Base]", str64Base);
 //        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
