@@ -40,6 +40,10 @@ import java.util.List;
 
 import com.example.chloe.bceo.DBLayout.DatabaseConnector;
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.model.User;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A login screen that offers login via email/password.
@@ -209,8 +213,27 @@ public class LoginActivity extends AppCompatActivity  {
             Toast.makeText(this.getApplicationContext(),
                     "Wrong password", Toast.LENGTH_SHORT).show();
         } else if (response.toString().substring(0,6).equals("{\"id\":")) {
-            Intent intent = new Intent(this, GroupsActivity.class);
-            this.startActivity(intent);
+            try  {
+                JSONObject job = new JSONObject(response.toString());
+                int login_id = job.getInt("id");
+                String login_email = job.getString("email");
+                String login_password = job.getString("password");
+                String login_phone = job.getString("phone");
+                int login_groupId = job.getInt("group_id");
+
+                User u = new User(
+                        login_id, login_email, login_password, login_groupId, login_phone);
+
+                // Success loging in, so go to Group page
+                Intent intent = new Intent(this, GroupsActivity.class);
+                //passing successfully logged in user
+                intent.putExtra("user", u);
+                this.startActivity(intent);
+
+            } catch (JSONException e) {
+                Log.w("ERROR:", "response not in JSON form!");
+            }
+
         }
         else {
             Toast.makeText(this.getApplicationContext(),

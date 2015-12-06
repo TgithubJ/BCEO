@@ -10,26 +10,37 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.model.User;
 
 public class GroupsActivity extends AppCompatActivity {
-    private ImageButton cmu;
+    private ImageButton group_image;
 
     private Spinner future_group;
     private Button join;
+
+    private TextView tmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups);
 
-        cmu = (ImageButton) findViewById(R.id.CMU);
+        /* retrieve logged in user in JSON format
+        {"id":9, "email":"woojoos1@andrew.cmu.edu",
+        "phone":"4109712779", "group_id":2}
+        */
+        User user = (User) getIntent().getSerializableExtra("user");
 
+        group_image = (ImageButton) findViewById(R.id.groupImage);
+        tmp = (TextView) findViewById(R.id.userView);
+        tmp.setText("group_id:" + user.getGroupID());
         future_group = (Spinner) findViewById(R.id.group_spinner);
         join = (Button) findViewById(R.id.join_group);
 
-        cmu.setOnClickListener(new View.OnClickListener() {
+        group_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 browse();

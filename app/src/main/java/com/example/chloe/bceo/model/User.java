@@ -1,42 +1,51 @@
 package com.example.chloe.bceo.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * Created by chuntaejin on 11/12/15.
  */
-public class User {
-    private String userID;
-    private String userName;
-    private String[] groupID;
-    private String[] groupName;
-    private String phoneNum;
-    private int priority;
-    private String message;
+public class User implements Serializable {
+    private int id;
+    private String email;
+    private String password;
+    private int group_id;
+    private String phone;
+    private String msg;
+
+    public User(int id, String email, String password, int group_id, String phone) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.group_id = group_id;
+        this.phone = phone;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        msg = message;
     }
 
-    private String password;
-
-    public String[] getGroupID() {
-        return groupID;
+    public int getGroupID() {
+        return group_id;
     }
 
-    public void setGroupID(String[] groupID) {
-        this.groupID = groupID;
+    public void setGroupID(int groupID) {
+        group_id = groupID;
     }
 
-    public String[] getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String[] groupName) {
-        this.groupName = groupName;
-    }
 
     public String getPassword() {
         return password;
@@ -47,34 +56,20 @@ public class User {
     }
 
     public String getPhoneNum() {
-        return phoneNum;
+        return phone;
     }
 
     public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
+        phone = phoneNum;
     }
 
     public String getUserID() {
-        return userID;
+        return email;
     }
 
     public void setUserID(String userID) {
-        this.userID = userID;
+        this.email = userID;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }

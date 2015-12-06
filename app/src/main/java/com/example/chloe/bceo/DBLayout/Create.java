@@ -17,13 +17,11 @@ public class Create {
         ContentValues info3 = new ContentValues();
 
         info.put("uID", user.getUserID());
-        info.put("uName", user.getUserName());
         info.put("Password", user.getPassword());
         info.put("Phone", user.getPhoneNum());
 
         info2.put("uID", user.getUserID());
-        info2.put("gID", user.getGroupID()[0]);
-        info2.put("gName", user.getGroupName()[0]);
+        info2.put("gID", user.getGroupID());
 
         databaseConnector.open(); // open the database
         databaseConnector.getDatabase().insert("User", null, info);
@@ -43,7 +41,6 @@ public class Create {
 
         info2.put("uID", user.getUserID());
         info2.put("pID", product.getpID());
-        info2.put("Priority", user.getPriority());
 
         databaseConnector.open(); // open the database
         databaseConnector.getDatabase().insert("Product", null, info);
