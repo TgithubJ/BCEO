@@ -1,4 +1,4 @@
-package com.example.chloe.bceo.view;
+package com.example.chloe.bceo.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.view.ProductActivity;
 
 /**
  * Created by chuntaejin on 11/11/15.
  */
-public class FragmentSellList extends Fragment {
+public class FragmentBuyList extends Fragment {
     private String[] musicArray = {"Title: Toaster \n Price: $12 \n Seller: Taejin",
             "Title: Cookie \n Price: $2 \n Seller: Woojoo"};
 
@@ -32,9 +33,9 @@ public class FragmentSellList extends Fragment {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         if (position == 0) {
-                            startActivity(new Intent(getActivity(), SellActivity.class));
+                            startActivity(new Intent(getActivity(), ProductActivity.class));
                         } else if(position == 1) {
-                            startActivity(new Intent(getActivity(), SellActivity.class));
+                            startActivity(new Intent(getActivity(), ProductActivity.class));
                         }
                     }
                 }

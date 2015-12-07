@@ -1,4 +1,4 @@
-package com.example.chloe.bceo.view;
+package com.example.chloe.bceo.fragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.chloe.bceo.R;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Created by HsiangLin on 11/12/15.
  */
 public class BrowseActivityFragment extends Fragment {
 

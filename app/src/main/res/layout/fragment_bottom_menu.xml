@@ -9,10 +9,10 @@
         android:layout_height="wrap_content"
         android:text="Browse"
         android:id="@+id/button_browse"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_marginRight="6dp"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/button_order" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -20,9 +20,9 @@
         android:layout_height="wrap_content"
         android:text="ORDER"
         android:id="@+id/button_order"
+        android:layout_marginRight="6dp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/button_browse"
-        android:layout_marginRight="6dp" />
+        android:layout_toStartOf="@+id/button_sell" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:text="SELL"
         android:id="@+id/button_sell"
+        android:layout_marginRight="6dp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/button_order"
-        android:layout_marginRight="6dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

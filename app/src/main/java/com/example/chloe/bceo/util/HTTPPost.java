@@ -42,6 +42,7 @@ public class HTTPPost {
     }
 
     public static Bitmap executeImageDownload(String productID) throws IOException{
+        Bitmap bm = null;
         Map<String, String> comment = new HashMap<String, String>();
 
         comment.put("product_id", productID);
@@ -61,13 +62,13 @@ public class HTTPPost {
             Map<String, String> resBitmap = gson.fromJson(jsonResult, new TypeToken<Map<String, String>>(){}.getType());
 
             // Decode string back to bitmap and return
-            return Image64Base.decodeBase64(resBitmap.get("image64str"));
+            bm = Image64Base.decodeBase64(resBitmap.get("image64str"));
 
         } else {
             Log.e("httpPost", "Post Request failed!");
         }
 
-
+        return bm;
     }
 
     public static HttpResponse makeRequest(String uri, String json) {

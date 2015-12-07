@@ -21,7 +21,7 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.example.chloe.bceo.view.FragmentBottomMenu"
+        android:name="com.example.chloe.bceo.fragment.FragmentBottomMenu"
         android:id="@+id/fragment"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
@@ -31,7 +31,7 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.example.chloe.bceo.view.FragmentSearchBar"
+        android:name="com.example.chloe.bceo.fragment.FragmentSearchBar"
         android:id="@+id/fragment_search_bar"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"

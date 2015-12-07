@@ -1,4 +1,4 @@
-package com.example.chloe.bceo.view;
+package com.example.chloe.bceo.fragment;
 
 
 import android.content.Intent;
@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.view.BrowseActivity;
+import com.example.chloe.bceo.view.GroupsActivity;
+import com.example.chloe.bceo.view.MypageActivity;
+import com.example.chloe.bceo.view.OrderActivity;
+import com.example.chloe.bceo.view.SellActivity;
 
 
 /**

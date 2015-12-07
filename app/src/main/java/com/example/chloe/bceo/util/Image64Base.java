@@ -11,6 +11,8 @@ import java.io.ByteArrayOutputStream;
  * Created by HsiangLin on 12/5/15.
  */
 public class Image64Base {
+
+    //convert bitmap to string
     public static String encodeTobase64(Bitmap image)
     {
         Bitmap immagex=image;
@@ -22,6 +24,7 @@ public class Image64Base {
         Log.e("LOOK", imageEncoded);
         return imageEncoded;
     }
+    //convert string to bitmap
     public static Bitmap decodeBase64(String input)
     {
         byte[] decodedByte = Base64.decode(input, 0);

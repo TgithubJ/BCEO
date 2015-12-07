@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
 
@@ -68,7 +69,7 @@ public class BrowseActivity extends AppCompatActivity {
 
             if(convertView==null){
                 grid = new View(mContext);
-                LayoutInflater inflater=getLayoutInflater();
+                LayoutInflater inflater = getLayoutInflater();
                 grid=inflater.inflate(R.layout.fragment_grid_item, parent, false);
             }else{
                 grid = (View)convertView;
@@ -92,70 +93,26 @@ public class BrowseActivity extends AppCompatActivity {
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new MyAdapter(this));
-        gridview.setOnItemClickListener(new ItemClickListener());
-
-//        setupBottomMenu();
+        gridview.setOnItemClickListener(new ItemClickListener(BrowseActivity.this));
 
     }
 
-//    public void setupBottomMenu(){
-//        //Button Menu
-//        Button buttonBrowse = (Button) findViewById(R.id.button_browse);
-//        //Action taken when a button is pressed
-//        buttonBrowse.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent myIntent = new Intent(v.getContext(), BrowseActivity.class);
-//                startActivity(myIntent);
-//            }
-//        });
-//
-//        Button buttonOrder = (Button) findViewById(R.id.button_order);
-//        //Action taken when a button is pressed
-//        buttonOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent myIntent = new Intent(v.getContext(), OrderActivity.class);
-//                startActivity(myIntent);
-//            }
-//        });
-//
-//        Button buttonSell = (Button) findViewById(R.id.button_sell);
-//        //Action taken when a button is pressed
-//        buttonSell.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent myIntent = new Intent(v.getContext(), SellActivity.class);
-//                startActivity(myIntent);
-//            }
-//        });
-//
-//        Button buttonGroup = (Button) findViewById(R.id.button_order);
-//        //Action taken when a button is pressed
-//        buttonGroup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent myIntent = new Intent(v.getContext(), GroupsActivity.class);
-//                startActivity(myIntent);
-//            }
-//        });
-//
-//        Button buttonMyPage = (Button) findViewById(R.id.button_mypage);
-//        //Action taken when a button is pressed
-//        buttonMyPage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent myIntent = new Intent(v.getContext(), MypageActivity.class);
-//                startActivity(myIntent);
-//            }
-//        });
-//    }
-
     public class ItemClickListener implements AdapterView.OnItemClickListener {
+        Context c;
+
+        public ItemClickListener(Context c){
+            this.c = c;
+        }
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //Dialog: show which item clicked
+            Toast.makeText(c, "Postion: "+ position + "\nID: " + id, Toast.LENGTH_SHORT).show();
+
+            //Start product activity
             Intent myIntent = new Intent(view.getContext(), ProductActivity.class);
             startActivityForResult(myIntent, 0);
+
 //            UserSubmissionLog userSubmissionLogs= new UserSubmissionLog(position);
 //            System.out.println("Position "+position);
         }
