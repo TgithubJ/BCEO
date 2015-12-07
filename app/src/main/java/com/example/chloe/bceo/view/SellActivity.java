@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -103,6 +104,12 @@ public class SellActivity extends AppCompatActivity {
                     }
                 }
         );
+
+
+//        StrictMode.ThreadPolicy policy = new
+//                StrictMode.ThreadPolicy.Builder()
+//                .permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
 
     }
 
@@ -234,10 +241,18 @@ public class SellActivity extends AppCompatActivity {
 
     void saveImageOnServerSide(Bitmap bm){
 
+        if (bm == null){
+            Toast.makeText(SellActivity.this, "Bitmap not received", Toast.LENGTH_LONG).show();
+            return;
+        }
         String str64Base = Image64Base.encodeTobase64(bm);
-        HTTPPost.executeImageUpload(str64Base);
 
-//        Log.d("[64Base]", str64Base);
+        Log.d("[64Base]", str64Base);
+
+        HTTPPost post = new HTTPPost();
+        post.executeImageUpload(str64Base);
+
+
 //        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
     }
 
