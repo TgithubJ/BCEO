@@ -1,51 +1,35 @@
 package com.example.chloe.bceo.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
+
  * Created by chuntaejin on 11/12/15.
  */
-public class User implements Serializable {
-    private int id;
-    private String email;
-    private String password;
-    private int group_id;
-    private String phone;
-    private String msg;
-
-    public User(int id, String email, String password, int group_id, String phone) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.group_id = group_id;
-        this.phone = phone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+public class User {
+    private int userID;
+    private String userEmail;
+    private String userName;
+    private String groupID;
+    private String phoneNum;
+    private int priority;
+    private String message;
 
     public String getMessage() {
-        return msg;
+        return message;
     }
 
     public void setMessage(String message) {
-        msg = message;
+        this.message = message;
     }
 
-    public int getGroupID() {
-        return group_id;
+    private String password;
+
+    public String getGroupID() {
+        return groupID;
     }
 
-    public void setGroupID(int groupID) {
-        group_id = groupID;
+    public void setGroupID(String groupID) {
+        this.groupID = groupID;
     }
-
 
     public String getPassword() {
         return password;
@@ -56,20 +40,42 @@ public class User implements Serializable {
     }
 
     public String getPhoneNum() {
-        return phone;
+        return phoneNum;
     }
 
     public void setPhoneNum(String phoneNum) {
-        phone = phoneNum;
+        this.phoneNum = phoneNum;
     }
 
-    public String getUserID() {
-        return email;
+    public int getPriority() {
+        return priority;
     }
 
-    public void setUserID(String userID) {
-        this.email = userID;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
+    public String getUserName() {
+        return userName;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 }

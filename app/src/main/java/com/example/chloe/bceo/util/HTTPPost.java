@@ -44,7 +44,7 @@ public class HTTPPost {
     public void executeImageUpload(String strBm64Base) {
         Map<String, String> comment = new HashMap<String, String>();
 
-        comment.put("image", "sae");
+        comment.put("image", strBm64Base);
 
         //Convert java object to json with external library "gson"
         json = new GsonBuilder().create().toJson(comment, Map.class);
@@ -58,45 +58,40 @@ public class HTTPPost {
         //Make a HTTP request
 //        HttpResponse resHTTP = makeRequest("http://52.34.169.54:3000/images", json);
     }
-//
-//    public Bitmap executeImageDownload(String productID) throws IOException{
-//        Bitmap bm = null;
-//        Map<String, String> comment = new HashMap<String, String>();
-//
+
+    public Bitmap executeImageDownload(String productID) throws IOException{
+        Bitmap bm = null;
+        Map<String, String> comment = new HashMap<String, String>();
+
 //        comment.put("product_id", productID);
-//
+
 //        //Convert java object to json with external library "gson"
 //        String json = new GsonBuilder().create().toJson(comment, Map.class);
-//
-//        //Make a HTTP request
-//        HttpResponse resHTTP = makeRequest("http://52.34.169.54:3000/image/insert", json);
-//
-//        if (resHTTP.getStatusLine().getStatusCode() == 200) {
-//            // Get Result string from HTTP entity
-//            String jsonResult = EntityUtils.toString(resHTTP.getEntity());
-//
-//            //Convert json to map
+
+        //Make a HTTP request
+        HttpResponse resHTTP = makeRequest("http://52.34.169.54:3000/images?id=15");
+
+        if (resHTTP.getStatusLine().getStatusCode() == 200) {
+            // Get Result string from HTTP entity
+            String jsonResult = EntityUtils.toString(resHTTP.getEntity());
+            Log.d("[HttpPost Decode]", "jsonResult");
+
+            //Convert json to map
 //            Gson gson = new Gson();
 //            Map<String, String> resBitmap = gson.fromJson(jsonResult, new TypeToken<Map<String, String>>(){}.getType());
-//
-//            // Decode string back to bitmap and return
+
+            // Decode string back to bitmap and return
 //            bm = Image64Base.decodeBase64(resBitmap.get("image64str"));
-//
-//        } else {
-//            Log.e("httpPost", "Post Request failed!");
-//        }
-//
-//        return bm;
-//    }
+            bm = Image64Base.decodeBase64(jsonResult);
+
+        } else {
+            Log.e("httpPost", "Post Request failed!");
+        }
+
+        return bm;
+    }
 
     private class Connection extends AsyncTask {
-//        String json;
-//        String url;
-//
-//        public Connection(String json, String url){
-//            this.json = json;
-//            this.url = url;
-//        }
 
         @Override
         protected Object doInBackground(Object... arg0) {

@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseConnector {
    // database name
-   private static final String DATABASE_NAME = "StudentInformation";
+   private static final String DATABASE_NAME = "StudentInformation2";
    private SQLiteDatabase database; // database object
    private DatabaseOpenHelper databaseOpenHelper; // database helper
 
@@ -53,24 +53,23 @@ public class DatabaseConnector {
 
           // query to create a new table named contacts
          String createUser = "CREATE TABLE User" +
-                 "(uID text,  uName text, Password text, Phone integer, Message text);";
+                 "(uID integer, uEmail text ,uName text, Password text, Phone integer, Message text);";
          db.execSQL(createUser); // execute the query
 
           // query to create a new table named contacts
-          String createGroup = "CREATE TABLE Group" +
-                  "(uID text, gID text, gName text);";
+          String createGroup = "CREATE TABLE UserGroup" +
+                  "(uID integer, gID text, gName text);";
           db.execSQL(createGroup); // execute the query
 
           // query to create a new table named contacts
-          String createProduct = "CREATE TABLE Product" +
-                  "(pID text, pName text, Price float, Description text, Waiting integer);";
+          String createProduct = "CREATE TABLE Product2" +
+                  "(pID integer, pName text, Price float, Description text, Waiting integer, pImage text);";
           db.execSQL(createProduct); // execute the query
 
           // query to create a new table named contacts
           String createUserProduct = "CREATE TABLE UserProduct" +
-                  "(uID text, pID text, Priority integer);";
+                  "(uID integer, pID integer, Priority integer);";
           db.execSQL(createUserProduct); // execute the query
-
 
       } // end method onCreate
 

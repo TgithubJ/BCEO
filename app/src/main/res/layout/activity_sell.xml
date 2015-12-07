@@ -119,19 +119,19 @@
         android:text="Camera"
         android:layout_marginTop="33dp"
         android:layout_below="@+id/horizontalScrollView"
-        android:layout_alignStart="@+id/image_product_preview" />
+        android:layout_toStartOf="@+id/image_product_preview" />
 
     <Button
         android:id="@+id/button_upload"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Upload"
-        android:layout_above="@+id/image_product_preview"
-        android:layout_alignEnd="@+id/image_product_preview" />
+        android:layout_alignTop="@+id/button_camera"
+        android:layout_toEndOf="@+id/image_product_preview" />
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:id="@+id/image_product_preview"
         android:layout_below="@+id/button_camera"
         android:layout_centerHorizontal="true" />

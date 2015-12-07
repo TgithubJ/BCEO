@@ -12,7 +12,7 @@ public class Delete {
     public void deleteUser(User user, DatabaseConnector databaseConnector) {
         databaseConnector.open(); // open the database
         databaseConnector.getDatabase().delete("User", "uID" + user.getUserID(), null);
-        databaseConnector.getDatabase().delete("Group", "uID=" + user.getUserID(), null);
+        databaseConnector.getDatabase().delete("UserGroup", "uID=" + user.getUserID(), null);
         databaseConnector.close(); // close the database
     } // end method deleteContact
 

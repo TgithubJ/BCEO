@@ -4,14 +4,21 @@ package com.example.chloe.bceo.model;
  * Created by chuntaejin on 11/12/15.
  */
 public class Product {
-    private String pID;
+    private int pID;
     private String pName;
     private float pPrice;
     private int pWaiting;
-
+    private String pImage;
     private String pDescription;
 
-    public String getpID() {
+    public String getpImage() {
+        return pImage;
+    }
+
+    public void setpImage(String pImage) {
+        this.pImage = pImage;
+    }
+    public int getpID() {
         return this.pID;
     }
     public String getpName() {
@@ -27,7 +34,7 @@ public class Product {
         return this.pWaiting;
     }
 
-    public void setpID(String pID) {
+    public void setpID(int pID) {
         this.pID = pID;
     }
     public void setpName(String pName) {

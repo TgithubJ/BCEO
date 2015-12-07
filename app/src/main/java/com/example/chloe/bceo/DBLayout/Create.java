@@ -14,9 +14,9 @@ public class Create {
     public void createBuyer(User user, DatabaseConnector databaseConnector) {
         ContentValues info = new ContentValues();
         ContentValues info2 = new ContentValues();
-        ContentValues info3 = new ContentValues();
 
         info.put("uID", user.getUserID());
+        info.put("uName", user.getUserName());
         info.put("Password", user.getPassword());
         info.put("Phone", user.getPhoneNum());
 
@@ -25,7 +25,7 @@ public class Create {
 
         databaseConnector.open(); // open the database
         databaseConnector.getDatabase().insert("User", null, info);
-        databaseConnector.getDatabase().insert("Group", null, info2);
+        databaseConnector.getDatabase().insert("UserGroup", null, info2);
         databaseConnector.close(); // close the database
     } // end method insertContact
 
@@ -38,12 +38,14 @@ public class Create {
         info.put("Price", product.getpPrice());
         info.put("Description", product.getpDescription());
         info.put("Waiting", product.getpWaiting());
+        info.put("pImage", product.getpImage());
 
         info2.put("uID", user.getUserID());
         info2.put("pID", product.getpID());
+        info2.put("Priority", user.getPriority());
 
         databaseConnector.open(); // open the database
-        databaseConnector.getDatabase().insert("Product", null, info);
+        databaseConnector.getDatabase().insert("Product2", null, info);
         databaseConnector.getDatabase().insert("UserProduct", null, info2);
         databaseConnector.close(); // close the database
     } // end method insertContact

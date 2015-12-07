@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.chloe.bceo.DBLayout.DatabaseConnector;
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.util.HTTPPost;
 import com.example.chloe.bceo.util.Image64Base;
@@ -97,10 +98,38 @@ public class SellActivity extends AppCompatActivity {
         buttonComfirm.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
-                        saveImageOnServerSide(bd.getBitmap());
+                        //Save to local db
+//                        DatabaseConnector databaseConnector = new DatabaseConnector(this);
+//                        Create databaseCreator = new Create();
+//                        User testUser = new User();
+//                        testUser.setUserID("tj@gmail.com");
+//                        testUser.setGroupID("taejin@andrew.cmu.edu");
+//                        testUser.setPhoneNum("213-905-0929");
+//                        testUser.setPriority(1);
+//                        testUser.setUserName("Taejin Chun");
+//                        Product testProduct = new Product();
+//                        testProduct.setpDescription("This is a test item.");
+//                        testProduct.setpName("testItem");
+//                        testProduct.setpPrice(23);
+//                        testProduct.setpID(1);
+//                        testProduct.setpWaiting(2);
+//                        Bitmap imagefile = BitmapFactory.decodeResource(this.getResources(), R.drawable.androider_01);
+//                        testProduct.setpImage(encodeTobase64(imagefile));
+//                        //Drawable testP = testPicture.getDrawable();
+//                        databaseCreator.createProduct(testUser, testProduct, databaseConnector);
+
+
+                        //
+//                        image_preview.setImageResource(R.drawable.androider_01);
+//                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
+//                        saveImageOnServerSide(bd.getBitmap());
+
+                        image_preview.setImageBitmap(getImageOnServerSide(1));
 
 //                        startActivity(new Intent(v.getContext(), MypageActivity.class));
+
+
+
                     }
                 }
         );
@@ -207,7 +236,7 @@ public class SellActivity extends AppCompatActivity {
         saveImageSDCard(bitmap);
 
         //set onclick
-        mImg.setOnClickListener(new imScrollListener(imagePos-1));
+        mImg.setOnClickListener(new imScrollListener(imagePos - 1));
     }
 
     void saveImageSDCard(Bitmap bmImage){
@@ -252,6 +281,28 @@ public class SellActivity extends AppCompatActivity {
         HTTPPost post = new HTTPPost();
         post.executeImageUpload(str64Base);
 
+
+//        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
+    }
+
+    Bitmap getImageOnServerSide(int id){
+        Bitmap bm = null;
+
+        String str64Base = Image64Base.encodeTobase64(bm);
+
+        Log.d("[64Base]", str64Base);
+
+        HTTPPost post = new HTTPPost();
+        try {
+            bm = post.executeImageDownload(Integer.toString(id));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (bm == null){
+            Toast.makeText(SellActivity.this, "Bitmap not received", Toast.LENGTH_LONG).show();
+        }
+        return bm;
 
 //        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
     }
