@@ -286,25 +286,7 @@ public class SellActivity extends AppCompatActivity {
     }
 
     Bitmap getImageOnServerSide(int id){
-        Bitmap bm = null;
 
-        String str64Base = Image64Base.encodeTobase64(bm);
-
-        Log.d("[64Base]", str64Base);
-
-        HTTPPost post = new HTTPPost();
-        try {
-            bm = post.executeImageDownload(Integer.toString(id));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (bm == null){
-            Toast.makeText(SellActivity.this, "Bitmap not received", Toast.LENGTH_LONG).show();
-        }
-        return bm;
-
-//        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
     }
 
 
