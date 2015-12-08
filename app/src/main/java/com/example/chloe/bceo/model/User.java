@@ -1,10 +1,12 @@
 package com.example.chloe.bceo.model;
 
+import java.io.Serializable;
+
 /**
 
  * Created by chuntaejin on 11/12/15.
  */
-public class User {
+public class User implements Serializable {
     private int userID;
     private String userEmail;
     private String userName;
@@ -12,6 +14,8 @@ public class User {
     private String phoneNum;
     private int priority;
     private String message;
+
+    public User(){}
 
     public User(int login_id, String login_email, String login_password, int login_groupId, String login_phone){
         this.userID = login_id;
