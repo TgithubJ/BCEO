@@ -1,7 +1,6 @@
 package com.example.chloe.bceo.view;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -13,8 +12,6 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.chloe.bceo.DBLayout.DatabaseConnector;
-import com.example.chloe.bceo.DBLayout.Read;
 import com.example.chloe.bceo.R;
 
 import java.io.File;
@@ -37,12 +34,12 @@ public class MypageActivity extends AppCompatActivity {
         ImageButton playRecordingBtn = (ImageButton) findViewById(R.id.imageButton6);
         ImageButton stpPlayingRecordingBtn = (ImageButton) findViewById(R.id.imageButton7);
 
-        DatabaseConnector databaseConnector = new DatabaseConnector(this);
+/*        DatabaseConnector databaseConnector = new DatabaseConnector(this);
         Read databaseReader = new Read();
         Cursor cursor = databaseReader.getOneProduct(1, databaseConnector);
         cursor.moveToFirst();
         decodedImage = decodeBase64(cursor.getString(5));
-        button.setImageBitmap(decodedImage);
+        button.setImageBitmap(decodedImage);*/
 
         button.setOnClickListener(
                 new View.OnClickListener() {
