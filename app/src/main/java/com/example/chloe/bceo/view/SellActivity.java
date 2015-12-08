@@ -125,10 +125,10 @@ public class SellActivity extends AppCompatActivity {
 //                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
 //                        saveImageOnServerSide(bd.getBitmap());
 
-
-                        String str64Base = HTTPGet.getResponse(HTTPGet.buildURL("image?id=15"));
+                        String str64Base = HTTPGet.getResponse(HTTPGet.buildURL("images?id=15"));
+                        Log.d("[HTTPGet]", HTTPGet.buildURL("images?id=15"));
+                        Log.d("[HTTPGet]", str64Base);
                         Bitmap bm = Image64Base.decodeBase64(str64Base);
-
                         image_preview.setImageBitmap(bm);
 
 //                        startActivity(new Intent(v.getContext(), MypageActivity.class));
