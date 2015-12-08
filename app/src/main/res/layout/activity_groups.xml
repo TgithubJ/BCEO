@@ -40,14 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/groupImage"
-            android:src="@drawable/cmu"
             android:layout_weight="0.07"
             android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="{'id':9,'email':'test1@test.com','password':'123412','phone':'4109712779','created_at':'2015-12-03T00:17:42.000Z','updated_at':'2015-12-03T00:17:42.000Z','group_id':2}"
+            android:text=""
             android:id="@+id/userView"
             android:layout_below="@+id/linearLayout"
             android:layout_centerHorizontal="true"

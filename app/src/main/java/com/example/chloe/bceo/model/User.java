@@ -1,10 +1,12 @@
 package com.example.chloe.bceo.model;
 
+import java.io.Serializable;
+
 /**
 
  * Created by chuntaejin on 11/12/15.
  */
-public class User {
+public class User implements Serializable {
     private int userID;
     private String userEmail;
     private String userName;

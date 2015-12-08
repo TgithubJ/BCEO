@@ -1,6 +1,5 @@
 package com.example.chloe.bceo.view;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,21 +17,17 @@ import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class GroupsActivity extends AppCompatActivity {
     private ImageButton groupImageButton;
 
-    private Spinner future_group;
+    private Spinner all_groups;
     private Button join;
 
     private TextView tmp;
     private Image64Base imageUtil;
     private HTTPGet httpUtil;
 
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +38,11 @@ public class GroupsActivity extends AppCompatActivity {
         {"id":9, "email":"woojoos1@andrew.cmu.edu",
         "phone":"4109712779", "group_id":2}
         */
-        User user = (User) getIntent().getSerializableExtra("user");
+        user = (User) getIntent().getSerializableExtra("user");
 
         groupImageButton = (ImageButton) findViewById(R.id.groupImage);
         tmp = (TextView) findViewById(R.id.userView);
-        future_group = (Spinner) findViewById(R.id.group_spinner);
+        all_groups = (Spinner) findViewById(R.id.group_spinner);
         join = (Button) findViewById(R.id.join_group);
 
         Log.w("ERROR:", (Integer.toString(user.getGroupID())));
@@ -99,6 +94,8 @@ public class GroupsActivity extends AppCompatActivity {
 
     private void browse() {
         Intent intent = new Intent(this, BrowseActivity.class);
+        //passing logged in user
+        intent.putExtra("user", user);
         this.startActivity(intent);
     }
 

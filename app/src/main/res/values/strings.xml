@@ -13,7 +13,8 @@
 
 
     <string-array name="group_list">
-    <item>CMU</item>
+        <item>CMU-SV</item>
+        <item>CMU</item>
     </string-array>
 
 
