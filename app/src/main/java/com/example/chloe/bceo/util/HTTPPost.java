@@ -61,7 +61,7 @@ public class HTTPPost {
 
     public Bitmap executeImageDownload(String productID) throws IOException{
         Bitmap bm = null;
-        Map<String, String> comment = new HashMap<String, String>();
+//        Map<String, String> comment = new HashMap<String, String>();
 
 //        comment.put("product_id", productID);
 
