@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,14 +15,24 @@ import android.widget.TextView;
 
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.User;
+import com.example.chloe.bceo.util.HTTPGet;
+import com.example.chloe.bceo.util.Image64Base;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class GroupsActivity extends AppCompatActivity {
-    private ImageButton group_image;
+    private ImageButton groupImageButton;
 
     private Spinner future_group;
     private Button join;
 
     private TextView tmp;
+    private Image64Base imageUtil;
+    private HTTPGet httpUtil;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +45,24 @@ public class GroupsActivity extends AppCompatActivity {
         */
         User user = (User) getIntent().getSerializableExtra("user");
 
-        group_image = (ImageButton) findViewById(R.id.groupImage);
+        groupImageButton = (ImageButton) findViewById(R.id.groupImage);
         tmp = (TextView) findViewById(R.id.userView);
-        tmp.setText("group_id:" + user.getGroupID());
         future_group = (Spinner) findViewById(R.id.group_spinner);
         join = (Button) findViewById(R.id.join_group);
 
-        group_image.setOnClickListener(new View.OnClickListener() {
+        Log.w("ERROR:", (Integer.toString(user.getGroupID())));
+
+        if (user.getGroupID() == 0) {
+            tmp.setText("No joined group yet!");
+
+        } else {
+            String urlStr = httpUtil.buildURL("group_logo?id=" + user.getGroupID());
+            String response = httpUtil.getResponse(urlStr);
+
+            groupImageButton.setImageBitmap(imageUtil.decodeBase64(response));
+        }
+
+        groupImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 browse();
@@ -65,9 +87,6 @@ public class GroupsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
