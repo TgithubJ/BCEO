@@ -1,22 +1,8 @@
 package com.example.chloe.bceo.view;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.LoaderManager.LoaderCallbacks;
-import android.content.ContentResolver;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,12 +20,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.chloe.bceo.DBLayout.DatabaseConnector;
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.User;
+import com.example.chloe.bceo.util.HTTPGet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,11 +34,10 @@ public class LoginActivity extends AppCompatActivity  {
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
-
     private Button signup;
     private Button mEmailSignInButton;
+
+    private HTTPGet httpUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +75,6 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
 
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     public void SignUp() {
@@ -168,53 +146,24 @@ public class LoginActivity extends AppCompatActivity  {
         String user_password = mPasswordView.getText().toString();
 
         // ubuntu remote server with signup GET request
-        StringBuilder urlStr =
-                new StringBuilder("http://52.34.169.54:3000/login?");
-        urlStr.append("email=" + user_email);
-        urlStr.append("&pw=" + user_password);
+        StringBuilder tail =
+                new StringBuilder("login?");
+        tail.append("email=" + user_email);
+        tail.append("&pw=" + user_password);
 
-        URL url;
-        HttpURLConnection urlConnection = null;
+        String urlStr = httpUtil.buildURL(tail.toString());
+        String response = httpUtil.getResponse(urlStr);
 
-        // server response str
-        StringBuilder response = new StringBuilder();
-        try {
-            url = new URL(urlStr.toString());
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            InputStream in = urlConnection.getInputStream();
-            InputStreamReader isw = new InputStreamReader(in);
-
-
-            int data = isw.read();
-            while (data != -1) {
-                char current = (char) data;
-                data = isw.read();
-                response.append(current);
-            }
-            Log.w("INFO:", response.toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                urlConnection.disconnect();
-            } catch (Exception e) {
-                e.printStackTrace(); //If you want further info on failure...
-            }
-        }
-
-
-        if( response.toString().equals("not exist")) {
+        if( response.equals("not exist")) {
             Toast.makeText(this.getApplicationContext(),
                     "Email doesn't exist", Toast.LENGTH_SHORT).show();
 
-        } else if (response.toString().equals("wrong password")){
+        } else if (response.equals("wrong password")){
             Toast.makeText(this.getApplicationContext(),
                     "Wrong password", Toast.LENGTH_SHORT).show();
-        } else if (response.toString().substring(0,6).equals("{\"id\":")) {
+        } else if (response.substring(0,6).equals("{\"id\":")) {
             try  {
-                JSONObject job = new JSONObject(response.toString());
+                JSONObject job = new JSONObject(response);
                 int login_id = job.getInt("id");
                 String login_email = job.getString("email");
                 String login_password = job.getString("password");
@@ -233,13 +182,11 @@ public class LoginActivity extends AppCompatActivity  {
             } catch (JSONException e) {
                 Log.w("ERROR:", "response not in JSON form!");
             }
-
         }
         else {
             Toast.makeText(this.getApplicationContext(),
                     "sign up failed, try again", Toast.LENGTH_SHORT).show();
         }
-
     }
 }
 

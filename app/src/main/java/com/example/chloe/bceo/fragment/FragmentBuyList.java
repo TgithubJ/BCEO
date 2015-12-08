@@ -17,13 +17,13 @@ import com.example.chloe.bceo.view.ProductActivity;
  * Created by chuntaejin on 11/11/15.
  */
 public class FragmentBuyList extends Fragment {
-    private String[] musicArray = {"Title: Toaster \n Price: $12 \n Seller: Taejin",
+    private String[] buyArray = {"Title: Toaster \n Price: $12 \n Seller: Taejin",
             "Title: Cookie \n Price: $2 \n Seller: Woojoo"};
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_item,container, false);
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, musicArray);
+        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, buyArray);
 
         ListView musicListView = (ListView) view.findViewById(R.id.listView);
         musicListView.setAdapter(adapter);

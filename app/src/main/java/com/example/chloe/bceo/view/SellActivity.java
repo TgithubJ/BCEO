@@ -16,12 +16,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.chloe.bceo.DBLayout.Create;
 import com.example.chloe.bceo.DBLayout.DatabaseConnector;
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.model.User;
+import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.HTTPPost;
 import com.example.chloe.bceo.util.Image64Base;
 
@@ -119,7 +119,14 @@ public class SellActivity extends AppCompatActivity {
                         BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
                         saveImageOnServerSide(bd.getBitmap());
 
-                        image_preview.setImageBitmap(getImageOnServerSide(1));
+                        String url = HTTPGet.buildURL("images?id=15");
+                        String str64Base = HTTPGet.getResponse(url);
+
+                        Log.d("[HTTPGet]", url);
+                        Log.d("[HTTPGet]", str64Base);
+
+                        Bitmap bm = Image64Base.decodeBase64(str64Base);
+                        image_preview.setImageBitmap(bm);
 
 //                        startActivity(new Intent(v.getContext(), MypageActivity.class));
 
@@ -263,9 +270,9 @@ public class SellActivity extends AppCompatActivity {
         }
     }
 
-    void saveImageOnServerSide(Bitmap bm){
+    void saveImageOnServerSide(Bitmap bm) {
 
-        if (bm == null){
+        if (bm == null) {
             Toast.makeText(SellActivity.this, "Bitmap not received", Toast.LENGTH_LONG).show();
             return;
         }
@@ -276,28 +283,6 @@ public class SellActivity extends AppCompatActivity {
         HTTPPost post = new HTTPPost();
         post.executeImageUpload(str64Base);
 
-
-//        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
-    }
-
-    Bitmap getImageOnServerSide(int id){
-        Bitmap bm = null;
-
-        String str64Base = Image64Base.encodeTobase64(bm);
-
-        Log.d("[64Base]", str64Base);
-
-        HTTPPost post = new HTTPPost();
-        try {
-            bm = post.executeImageDownload(Integer.toString(id));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (bm == null){
-            Toast.makeText(SellActivity.this, "Bitmap not received", Toast.LENGTH_LONG).show();
-        }
-        return bm;
 
 //        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
     }
