@@ -8,10 +8,18 @@ public class User {
     private int userID;
     private String userEmail;
     private String userName;
-    private String groupID;
+    private int groupID;
     private String phoneNum;
     private int priority;
     private String message;
+
+    public User(int login_id, String login_email, String login_password, int login_groupId, String login_phone){
+        this.userID = login_id;
+        this.userEmail = login_email;
+        this.password = login_password;
+        this.groupID = login_groupId;
+        this.phoneNum = login_phone;
+    }
 
     public String getMessage() {
         return message;
@@ -23,11 +31,11 @@ public class User {
 
     private String password;
 
-    public String getGroupID() {
+    public int getGroupID() {
         return groupID;
     }
 
-    public void setGroupID(String groupID) {
+    public void setGroupID(int groupID) {
         this.groupID = groupID;
     }
 
