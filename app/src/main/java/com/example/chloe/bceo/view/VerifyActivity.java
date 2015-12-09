@@ -104,12 +104,8 @@ public class VerifyActivity extends Activity {
 
         String user_email_domain = to.split("@")[1];
         String subject = "Please verify";
-        String body = new StringBuilder().append("<!DOCTYPE html><html><body>"
-                + "<a href=\"http://52.34.169.54:3000/update_group?id="
-                + user.getUserEmail()
-                + "&group_id="
-                + group_id + "\">Click</a></body></html>")
-                .toString();
+        String body = new StringBuilder().append("http://52.34.169.54:3000/update_group?id="
+                + user.getUserEmail() + "&group_id=" + group_id).toString();
         String response = httpUtil.getResponse(
                 httpUtil.buildURL("group_domain?id=" + group_id));
 
