@@ -7,10 +7,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Environment;
-import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.HTTPPost;
 import com.example.chloe.bceo.util.Image64Base;
-import com.google.android.gms.plus.People;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -91,10 +89,10 @@ public class SellActivity extends AppCompatActivity {
                 startActivityForResult(intent, PHOTO);
             }
         });
-
-        StrictMode.ThreadPolicy policy =
-                new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+//
+//        StrictMode.ThreadPolicy policy =
+//                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
 
         //Product
         buttonComfirm.setOnClickListener(
@@ -119,7 +117,6 @@ public class SellActivity extends AppCompatActivity {
 //                        testProduct.setpImage(encodeTobase64(imagefile));
 //                        //Drawable testP = testPicture.getDrawable();
 //                        databaseCreator.createProduct(testUser, testProduct, databaseConnector);
-
 
 
 //                        //To save bitmap to server

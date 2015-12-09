@@ -19,13 +19,19 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/group_email" />
+            android:id="@+id/user_group_email" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Verify"
-            android:id="@+id/verify_button" />
+            android:text="Send Verification"
+            android:id="@+id/send_verification" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verified"
+            android:id="@+id/return_to_group" />
     </LinearLayout>
 
 </RelativeLayout>
