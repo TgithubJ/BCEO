@@ -1,7 +1,5 @@
 package com.example.chloe.bceo.util;
 
-import android.util.Log;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;

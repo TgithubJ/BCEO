@@ -1,7 +1,6 @@
 package com.example.chloe.bceo.view;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -15,8 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.chloe.bceo.DBLayout.DatabaseConnector;
-import com.example.chloe.bceo.DBLayout.Read;
 import com.example.chloe.bceo.R;
 
 import java.io.ByteArrayOutputStream;
@@ -42,6 +39,7 @@ public class ProductActivity extends AppCompatActivity {
         TextView waiting = (TextView) findViewById(R.id.textView17);
         TextView seller = (TextView) findViewById(R.id.textView14);
         Button buyButton = (Button)findViewById(R.id.button2);
+
 //        imagefile = BitmapFactory.decodeResource(this.getResources(), R.drawable.androider_01);
 //        encodedImage = encodeTobase64(imagefile);
 //        decodedImage = decodeBase64(encodedImage);
@@ -49,6 +47,7 @@ public class ProductActivity extends AppCompatActivity {
 //        description.setText(encodedImage);
 //        new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(MY_URL_STRING);
 
+        /*
         DatabaseConnector databaseConnector = new DatabaseConnector(this);
         Read databaseReader = new Read();
         Cursor cursor = databaseReader.getOneProduct(1, databaseConnector);
@@ -59,6 +58,7 @@ public class ProductActivity extends AppCompatActivity {
         description.setText(cursor.getString(3));
         decodedImage = decodeBase64(cursor.getString(5));
         iv.setImageBitmap(decodedImage);
+        */
 
         seller.setTypeface(null, Typeface.BOLD_ITALIC);
         seller.setOnClickListener(new View.OnClickListener() {

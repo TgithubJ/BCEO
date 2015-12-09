@@ -15,6 +15,8 @@ public class User implements Serializable {
     private int priority;
     private String message;
 
+    public User(){}
+
     public User(int login_id, String login_email, String login_password, int login_groupId, String login_phone){
         this.userID = login_id;
         this.userEmail = login_email;

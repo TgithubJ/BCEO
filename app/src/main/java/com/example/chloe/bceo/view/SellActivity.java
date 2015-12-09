@@ -6,34 +6,30 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
-import android.os.Environment;
-import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import com.example.chloe.bceo.DBLayout.Create;
 import com.example.chloe.bceo.DBLayout.DatabaseConnector;
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.model.Product;
+import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.HTTPPost;
 import com.example.chloe.bceo.util.Image64Base;
-
-import org.apache.http.protocol.HTTP;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class SellActivity extends AppCompatActivity {
     private final static int CAMERA = 66 ;
@@ -100,30 +96,28 @@ public class SellActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         //Save to local db
-//                        DatabaseConnector databaseConnector = new DatabaseConnector(this);
-//                        Create databaseCreator = new Create();
-//                        User testUser = new User();
-//                        testUser.setUserID("tj@gmail.com");
-//                        testUser.setGroupID("taejin@andrew.cmu.edu");
-//                        testUser.setPhoneNum("213-905-0929");
-//                        testUser.setPriority(1);
-//                        testUser.setUserName("Taejin Chun");
-//                        Product testProduct = new Product();
-//                        testProduct.setpDescription("This is a test item.");
-//                        testProduct.setpName("testItem");
-//                        testProduct.setpPrice(23);
-//                        testProduct.setpID(1);
-//                        testProduct.setpWaiting(2);
-//                        Bitmap imagefile = BitmapFactory.decodeResource(this.getResources(), R.drawable.androider_01);
-//                        testProduct.setpImage(encodeTobase64(imagefile));
-//                        //Drawable testP = testPicture.getDrawable();
-//                        databaseCreator.createProduct(testUser, testProduct, databaseConnector);
+                        DatabaseConnector databaseConnector = new DatabaseConnector(v.getContext());
+                        Create databaseCreator = new Create();
+                        User testUser = new User();
+                        testUser.setUserID(1);
+                        testUser.setGroupID(1);
+                        testUser.setPhoneNum("213-905-0929");
+                        testUser.setPriority(1);
+                        testUser.setUserName("Taejin Chun");
+                        Product testProduct = new Product();
+                        testProduct.setpDescription("This is a test item.");
+                        testProduct.setpName("testItem");
+                        testProduct.setpPrice(23);
+                        testProduct.setpID(1);
+                        testProduct.setpWaiting(2);
+                        Bitmap imagefile = BitmapFactory.decodeResource(getResources(), R.drawable.androider_01);
+                        testProduct.setpImage(Image64Base.encodeTobase64(imagefile));
+                        //Drawable testP = testPicture.getDrawable();
+                        databaseCreator.createProduct(testUser, testProduct, databaseConnector);
 
-
-                        //
-//                        image_preview.setImageResource(R.drawable.androider_01);
-//                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
-//                        saveImageOnServerSide(bd.getBitmap());
+                        image_preview.setImageResource(R.drawable.androider_01);
+                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
+                        saveImageOnServerSide(bd.getBitmap());
 
                         String url = HTTPGet.buildURL("images?id=15");
                         String str64Base = HTTPGet.getResponse(url);
