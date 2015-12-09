@@ -3,6 +3,7 @@ package com.example.chloe.bceo.util;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,6 +41,20 @@ public class HTTPPost {
     public final static int uploadImage = 11;
     public final static int requestImage = 22;
     String json;
+    private int image_ID;
+    private String url;
+
+    public int getImage_ID(){
+        return image_ID;
+    }
+
+    public void setURL(String url){
+        this.url = url;
+    }
+
+    public String getURL(){
+        return this.url;
+    }
 
     public void executeImageUpload(String strBm64Base) {
         Map<String, String> comment = new HashMap<String, String>();
@@ -49,10 +64,36 @@ public class HTTPPost {
         //Convert java object to json with external library "gson"
         json = new GsonBuilder().create().toJson(comment, Map.class);
 
-        Log.d("[json]", json);
+        Log.d("[jsonImage]", json);
 
 //        Connection connect = new Connection("http://52.34.169.54:3000/images", json);
 //        connect.execute();
+
+        setURL("http://52.34.169.54:3000/images");
+        new Connection().execute();
+
+        //Make a HTTP request
+//        HttpResponse resHTTP = makeRequest("http://52.34.169.54:3000/images", json);
+    }
+
+    public void uploadProduct(int user_id, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category) {
+        Map<String, String> comment = new HashMap<String, String>();
+
+        comment.put("user_id", Integer.toString(user_id));
+        comment.put("name", pName);
+        comment.put("price", Float.toString(pPrice));
+        comment.put("description", pDescription);
+        comment.put("waitlist", Integer.toString(pWaiting));
+        comment.put("image_id", Integer.toString(imageId));
+        comment.put("group_id", Integer.toString(groupId));
+        comment.put("category", category);
+
+        //Convert java object to json with external library "gson"
+        json = new GsonBuilder().create().toJson(comment, Map.class);
+
+        Log.d("[jsonProd]", json);
+
+        setURL("http://52.34.169.54:3000/products");
         new Connection().execute();
 
         //Make a HTTP request
@@ -96,7 +137,17 @@ public class HTTPPost {
         @Override
         protected Object doInBackground(Object... arg0) {
 //            makeRequest(url, json);
-            makeRequest("http://52.34.169.54:3000/images");
+            HttpResponse httpResponse = makeRequest(url);
+            Log.d("[HTTPPost]", httpResponse.toString());
+
+            try {
+                String imageID = EntityUtils.toString(httpResponse.getEntity());
+                image_ID = Integer.parseInt(imageID);
+                Log.d("[HTTPost]", imageID);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             return null;
         }
     }

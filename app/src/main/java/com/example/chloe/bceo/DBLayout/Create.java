@@ -32,17 +32,17 @@ public class Create {
     public void createProduct(User user, Product product,DatabaseConnector databaseConnector) {
         ContentValues info = new ContentValues();
         ContentValues info2 = new ContentValues();
-
-        info.put("pID", product.getpID());
-        info.put("pName", product.getpName());
-        info.put("Price", product.getpPrice());
-        info.put("Description", product.getpDescription());
-        info.put("Waiting", product.getpWaiting());
-        info.put("pImage", product.getpImage());
-
-        info2.put("uID", user.getUserID());
-        info2.put("pID", product.getpID());
-        info2.put("Priority", user.getPriority());
+//
+//        info.put("pID", product.getpID());
+//        info.put("pName", product.getpName());
+//        info.put("Price", product.getpPrice());
+//        info.put("Description", product.getpDescription());
+//        info.put("Waiting", product.getpWaiting());
+//        info.put("pImage", product.getpImage());
+//
+//        info2.put("uID", user.getUserID());
+//        info2.put("pID", product.getpID());
+//        info2.put("Priority", user.getPriority());
 
         databaseConnector.open(); // open the database
         databaseConnector.getDatabase().insert("Product2", null, info);

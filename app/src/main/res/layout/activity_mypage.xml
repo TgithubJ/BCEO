@@ -50,8 +50,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/editText4"
                 android:layout_alignParentTop="true"
-                android:layout_alignLeft="@+id/editText3"
-                android:layout_alignStart="@+id/editText3"
+                android:layout_alignLeft="@+id/editText_name"
+                android:layout_alignStart="@+id/editText_name"
                 android:layout_column="1" />
         </TableRow>
 
@@ -65,7 +65,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Group ID:"
                 android:id="@+id/textView9"
-                android:layout_above="@+id/editText3"
+                android:layout_above="@+id/editText_name"
                 android:layout_alignLeft="@+id/textView8"
                 android:layout_alignStart="@+id/textView8"
                 android:layout_marginRight="5dp"
@@ -76,8 +76,8 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/editText"
-                android:layout_alignLeft="@+id/editText3"
-                android:layout_alignStart="@+id/editText3"
+                android:layout_alignLeft="@+id/editText_name"
+                android:layout_alignStart="@+id/editText_name"
                 android:layout_column="1" />
         </TableRow>
 

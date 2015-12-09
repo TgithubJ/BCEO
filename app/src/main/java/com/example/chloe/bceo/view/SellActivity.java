@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -16,24 +15,22 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.chloe.bceo.DBLayout.DatabaseConnector;
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.HTTPPost;
 import com.example.chloe.bceo.util.Image64Base;
-
-import org.apache.http.protocol.HTTP;
+import com.google.android.gms.plus.People;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class SellActivity extends AppCompatActivity {
     private final static int CAMERA = 66 ;
@@ -95,6 +92,10 @@ public class SellActivity extends AppCompatActivity {
             }
         });
 
+        StrictMode.ThreadPolicy policy =
+                new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         //Product
         buttonComfirm.setOnClickListener(
                 new View.OnClickListener() {
@@ -120,19 +121,34 @@ public class SellActivity extends AppCompatActivity {
 //                        databaseCreator.createProduct(testUser, testProduct, databaseConnector);
 
 
-                        //
-//                        image_preview.setImageResource(R.drawable.androider_01);
-//                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
-//                        saveImageOnServerSide(bd.getBitmap());
 
-                        String url = HTTPGet.buildURL("images?id=15");
-                        String str64Base = HTTPGet.getResponse(url);
+//                        //To save bitmap to server
+//                        image_preview.setImageResource(R.drawable.androider_03);
+                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
+                        int image_id = saveImageOnServerSide(bd.getBitmap());
 
-                        Log.d("[HTTPGet]", url);
-                        Log.d("[HTTPGet]", str64Base);
+                        EditText et_name = (EditText) findViewById(R.id.editText_name);
+                        String p_name = et_name.getText().toString();
 
-                        Bitmap bm = Image64Base.decodeBase64(str64Base);
-                        image_preview.setImageBitmap(bm);
+                        EditText et_price = (EditText) findViewById(R.id.editText_price);
+                        float p_price = Float.parseFloat(et_price.getText().toString());
+
+                        //Upload product details
+                        int product_id = uploadProductOnServerSide(7, p_name, (float)p_price, "Have fun!", 0, image_id, 1, "electronics");
+
+//                        //Get image from server
+//                        HTTPGet httpGet = new HTTPGet();
+//                        String urlStr = httpGet.buildURL("images?id=15");
+//                        String response = httpGet.getResponse(urlStr);
+//                        Log.d("[HTTPGet]", urlStr);
+//                        Log.d("[HTTPGet]", response);
+
+//                        httpGet.getResponseBackground();
+//                        image_preview.setImageBitmap(httpGet.bm);
+
+                        //Set imageView
+//                        Bitmap bm = Image64Base.decodeBase64(response);
+//                        image_preview.setImageBitmap(bm);
 
 //                        startActivity(new Intent(v.getContext(), MypageActivity.class));
 
@@ -143,11 +159,12 @@ public class SellActivity extends AppCompatActivity {
         );
 
 
-//        StrictMode.ThreadPolicy policy = new
-//                StrictMode.ThreadPolicy.Builder()
-//                .permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
+    }
 
+    public int uploadProductOnServerSide(int user_id, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category) {
+        HTTPPost httpPost = new HTTPPost();
+        httpPost.uploadProduct(user_id, pName, pPrice, pDescription, pWaiting, imageId, groupId, category);
+        return httpPost.getImage_ID();
     }
 
     @Override
@@ -276,12 +293,13 @@ public class SellActivity extends AppCompatActivity {
         }
     }
 
-    void saveImageOnServerSide(Bitmap bm) {
+    int saveImageOnServerSide(Bitmap bm) {
 
         if (bm == null) {
             Toast.makeText(SellActivity.this, "Bitmap not received", Toast.LENGTH_LONG).show();
-            return;
+            return -1;
         }
+
         String str64Base = Image64Base.encodeTobase64(bm);
 
         Log.d("[64Base]", str64Base);
@@ -289,6 +307,9 @@ public class SellActivity extends AppCompatActivity {
         HTTPPost post = new HTTPPost();
         post.executeImageUpload(str64Base);
 
+        while(post.getImage_ID() == 0){}
+
+        return post.getImage_ID();
 
 //        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
     }

@@ -18,6 +18,10 @@ import android.widget.TextView;
 import com.example.chloe.bceo.DBLayout.DatabaseConnector;
 import com.example.chloe.bceo.DBLayout.Read;
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.model.Product;
+import com.example.chloe.bceo.model.User;
+import com.example.chloe.bceo.util.HTTPGet;
+import com.example.chloe.bceo.util.Image64Base;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -27,21 +31,34 @@ public class ProductActivity extends AppCompatActivity {
     private Bitmap decodedImage;
     private String encodedImage;
     private TextView description;
+    private TextView title;
+    private TextView waiting;
+    private TextView price;
+    private TextView seller;
 
     private String MY_URL_STRING = "http://image10.bizrate-images.com/resize?sq=60&uid=2216744464";
     private ImageView iv;
+
+    private Product prod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+        prod = (Product) getIntent().getSerializableExtra("prod");
+        Log.d("[ProductPage] ", prod.toString());
+
         iv = (ImageView) findViewById(R.id.imageView);
         description = (TextView) findViewById(R.id.textView18);
-        TextView title = (TextView) findViewById(R.id.textView15);
-        TextView price = (TextView) findViewById(R.id.textView16);
-        TextView waiting = (TextView) findViewById(R.id.textView17);
-        TextView seller = (TextView) findViewById(R.id.textView14);
+        title = (TextView) findViewById(R.id.textView15);
+        price = (TextView) findViewById(R.id.textView16);
+        waiting = (TextView) findViewById(R.id.textView17);
+        seller = (TextView) findViewById(R.id.textView14);
         Button buyButton = (Button)findViewById(R.id.button2);
+
+        setProductInfo(prod);
+
 //        imagefile = BitmapFactory.decodeResource(this.getResources(), R.drawable.androider_01);
 //        encodedImage = encodeTobase64(imagefile);
 //        decodedImage = decodeBase64(encodedImage);
@@ -49,16 +66,16 @@ public class ProductActivity extends AppCompatActivity {
 //        description.setText(encodedImage);
 //        new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(MY_URL_STRING);
 
-        DatabaseConnector databaseConnector = new DatabaseConnector(this);
-        Read databaseReader = new Read();
-        Cursor cursor = databaseReader.getOneProduct(1, databaseConnector);
-        cursor.moveToFirst();
-        title.setText(cursor.getString(1));
-        price.setText(Float.toString(cursor.getFloat(2)));
-        waiting.setText(Integer.toString(cursor.getInt(4)));
-        description.setText(cursor.getString(3));
-        decodedImage = decodeBase64(cursor.getString(5));
-        iv.setImageBitmap(decodedImage);
+//        DatabaseConnector databaseConnector = new DatabaseConnector(this);
+//        Read databaseReader = new Read();
+//        Cursor cursor = databaseReader.getOneProduct(1, databaseConnector);
+//        cursor.moveToFirst();
+//        title.setText(cursor.getString(1));
+//        price.setText(Float.toString(cursor.getFloat(2)));
+//        waiting.setText(Integer.toString(cursor.getInt(4)));
+//        description.setText(cursor.getString(3));
+//        decodedImage = decodeBase64(cursor.getString(5));
+//        iv.setImageBitmap(decodedImage);
 
         seller.setTypeface(null, Typeface.BOLD_ITALIC);
         seller.setOnClickListener(new View.OnClickListener() {
@@ -78,45 +95,64 @@ public class ProductActivity extends AppCompatActivity {
         });
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
+    private void setProductInfo(Product prod) {
+        title.setText(prod.getpName());
+        price.setText(Float.toString(prod.getpPrice()));
+        waiting.setText(Integer.toString(prod.getpWaiting()));
+        description.setText(prod.getpDescription());
 
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
+        String image_id = Integer.toString(prod.getImageId());
 
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
+        HTTPGet httpGet = new HTTPGet();
+        String urlStr = httpGet.buildURL("images?id=" + image_id);
+        String response = httpGet.getResponse(urlStr);
+        Log.d("[HTTPGet]", urlStr);
+        Log.d("[HTTPGet]", response);
 
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
+        Bitmap bm = Image64Base.decodeBase64(response);
+
+        iv.setImageBitmap(bm);
     }
 
-    public static String encodeTobase64(Bitmap image)
-    {
-        Bitmap immagex=image;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-
-        Log.e("LOOK", imageEncoded);
-        return imageEncoded;
-    }
-    public static Bitmap decodeBase64(String input)
-    {
-        byte[] decodedByte = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-    }
+//    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+//        ImageView bmImage;
+//
+//        public DownloadImageTask(ImageView bmImage) {
+//            this.bmImage = bmImage;
+//        }
+//
+//        protected Bitmap doInBackground(String... urls) {
+//            String urldisplay = urls[0];
+//            Bitmap mIcon11 = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                mIcon11 = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                Log.e("Error", e.getMessage());
+//                e.printStackTrace();
+//            }
+//            return mIcon11;
+//        }
+//
+//        protected void onPostExecute(Bitmap result) {
+//            bmImage.setImageBitmap(result);
+//        }
+//    }
+//
+//    public static String encodeTobase64(Bitmap image)
+//    {
+//        Bitmap immagex=image;
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//        byte[] b = baos.toByteArray();
+//        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+//
+//        Log.e("LOOK", imageEncoded);
+//        return imageEncoded;
+//    }
+//    public static Bitmap decodeBase64(String input)
+//    {
+//        byte[] decodedByte = Base64.decode(input, 0);
+//        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+//    }
 }

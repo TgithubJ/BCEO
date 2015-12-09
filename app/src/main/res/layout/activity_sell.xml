@@ -84,23 +84,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Title: Sony Toaster"
+        android:text="Price: "
         android:textSize="25sp"
-        android:id="@+id/textView3"
-        android:layout_above="@+id/button"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="61dp" />
+        android:id="@+id/text_product_price"
+        android:layout_below="@+id/text_product_name"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Price: $15"
+        android:text="Name: "
         android:textSize="25sp"
-        android:id="@+id/textView4"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/textView3"
-        android:layout_alignParentLeft="true" />
+        android:id="@+id/text_product_name"
+        android:layout_below="@+id/image_product_preview"
+        android:layout_alignParentStart="true" />
 
     <fragment
         android:layout_width="wrap_content"
@@ -135,5 +133,23 @@
         android:id="@+id/image_product_preview"
         android:layout_below="@+id/button_camera"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:ems="10"
+        android:id="@+id/editText_name"
+        android:layout_alignBottom="@+id/text_product_name"
+        android:layout_toEndOf="@+id/text_product_name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_price"
+        android:layout_below="@+id/text_product_name"
+        android:layout_toEndOf="@+id/text_product_name"
+        android:text="Price" />
 
 </RelativeLayout>
