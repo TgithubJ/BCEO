@@ -101,6 +101,9 @@ public class GroupsActivity extends AppCompatActivity {
 
     private void joinGroup() {
         Intent intent = new Intent(this, VerifyActivity.class);
+        //passing logged in user
+        intent.putExtra("user", user);
+        intent.putExtra("group", all_groups.getSelectedItem().toString());
         this.startActivity(intent);
     }
 }
