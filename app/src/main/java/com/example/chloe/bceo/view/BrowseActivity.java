@@ -1,6 +1,5 @@
 package com.example.chloe.bceo.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.Product;
+import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
 
@@ -36,9 +36,11 @@ public class BrowseActivity extends AppCompatActivity {
     ArrayList<Product> productList = new ArrayList<Product>();
     ArrayList<Product> gridProdList = new ArrayList<Product>();
 
+
     Spinner category;
     Button button_filter;
     String filter_category = "all";
+    private User user;
 
     // references to our images
 //    private Integer[] mThumbIds = {
@@ -128,6 +130,9 @@ public class BrowseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
+        // get user object from GroupActivity
+        user = (User) getIntent().getSerializableExtra("user");
+
         final GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new MyAdapter(this));
         gridview.setOnItemClickListener(new ItemClickListener(BrowseActivity.this));
@@ -182,6 +187,8 @@ public class BrowseActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             //Dialog: show which item clicked
             Toast.makeText(c, "Postion: "+ position + "\nID: " + id, Toast.LENGTH_SHORT).show();
+
+            passUserToProduct();
 
             //Start product activity
             Intent intent = new Intent(view.getContext(), ProductActivity.class);
@@ -252,6 +259,13 @@ public class BrowseActivity extends AppCompatActivity {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
+    }
+
+    private void passUserToProduct() {
+        Intent intent = new Intent(this, ProductActivity.class);
+        //passing logged in user
+        intent.putExtra("user", user);
+        this.startActivity(intent);
     }
 }
 

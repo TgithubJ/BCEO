@@ -19,11 +19,12 @@ import java.io.File;
 
 public class MypageActivity extends AppCompatActivity {
     private ImageButton button;
-    private MediaPlayer mediaPlayer;
     private MediaRecorder recorder;
+    private MediaPlayer mediaPlayer;
     private Bitmap decodedImage;
     //private static final String OUTPUT_FILE= "/sdcard/recordoutput.3gpp";
     private static final String OUTPUT_FILE= Environment.getExternalStorageDirectory().getPath() + "/recordoutput.3gpp";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

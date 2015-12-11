@@ -106,4 +106,5 @@ public class GroupsActivity extends AppCompatActivity {
         intent.putExtra("group", all_groups.getSelectedItem().toString());
         this.startActivity(intent);
     }
+
 }

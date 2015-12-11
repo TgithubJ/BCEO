@@ -2,12 +2,9 @@ package com.example.chloe.bceo.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,9 +16,6 @@ import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 
 public class ProductActivity extends AppCompatActivity {
     private Bitmap imagefile;
@@ -37,12 +31,14 @@ public class ProductActivity extends AppCompatActivity {
     private ImageView iv;
 
     private Product prod;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        user = (User) getIntent().getSerializableExtra("user");
         prod = (Product) getIntent().getSerializableExtra("prod");
         Log.d("[ProductPage] ", prod.toString());
 
@@ -86,6 +82,7 @@ public class ProductActivity extends AppCompatActivity {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                passUserToOrder();
                 Intent myIntent = new Intent(v.getContext(), OrderActivity.class);
                 startActivity(myIntent);
             }
@@ -152,4 +149,10 @@ public class ProductActivity extends AppCompatActivity {
 //        byte[] decodedByte = Base64.decode(input, 0);
 //        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
 //    }
+    private void passUserToOrder() {
+        Intent intent = new Intent(this, OrderActivity.class);
+        //passing logged in user
+        intent.putExtra("user", user);
+        this.startActivity(intent);
+    }
 }
