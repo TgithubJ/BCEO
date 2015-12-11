@@ -90,6 +90,8 @@ public class SellActivity extends AppCompatActivity {
         user = FragmentBottomMenu.getUser();
         cmd = (String) getIntent().getSerializableExtra("cmd");
 
+        Log.d("[SellPage]", "user received: "+ user.getUserID());
+
         //If for update purpose, get a product
         if (cmd.equals("update")){
             p = (Product) getIntent().getSerializableExtra("prod");
@@ -158,7 +160,7 @@ public class SellActivity extends AppCompatActivity {
 //                        //To save bitmap to server
 //                        image_preview.setImageResource(R.drawable.androider_03);
 
-                        if (cmd.equals("null")){
+                        if (cmd.equals("upload")){
                             BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
                             int image_id = saveImageOnServerSide(bd.getBitmap());
 
@@ -166,11 +168,19 @@ public class SellActivity extends AppCompatActivity {
 
                             float p_price = Float.parseFloat(et_price.getText().toString());
 
+                            String p_description = et_description.getText().toString();
+
+                            String p_category = spinner_category.getSelectedItem().toString();
+
                             //Upload product details
-                            int product_id = uploadProductOnServerSide(7, p_name, (float) p_price, "Have fun!", 0, image_id, 1, "electronics");
+                            int product_id = uploadProductOnServerSide(user.getUserID(), p_name, (float) p_price, p_description, 0, image_id, user.getGroupID(), p_category);
 
                             Toast.makeText(SellActivity.this, "Upload Product Successfully!", Toast.LENGTH_LONG).show();
                         }else{
+                            //Read the new configuration
+                            Log.d("[SellPage]", "Begin Configuring");
+                            configureProduct();
+
                             HTTPPut httpPut = new HTTPPut(p);
                             httpPut.execute(p.getpID());
 
@@ -190,14 +200,30 @@ public class SellActivity extends AppCompatActivity {
 //                        Bitmap bm = Image64Base.decodeBase64(response);
 //                        image_preview.setImageBitmap(bm);
 
-
-
-                        startActivity(new Intent(v.getContext(), MypageActivity.class));
+                        //Start new activity
+                        Intent intent = new Intent(v.getContext(), MypageActivity.class);
+                        intent.putExtra("user", user);
+                        startActivityForResult(intent, 0);
                     }
+
                 }
         );
 
 
+    }
+
+    private void configureProduct() {
+        String p_name = et_name.getText().toString();
+        float p_price = Float.parseFloat(et_price.getText().toString());
+        String p_description = et_description.getText().toString();
+        String p_category = spinner_category.getSelectedItem().toString();
+        String p_status = spinner_status.getSelectedItem().toString();
+
+        p.setpName(p_name);
+        p.setpPrice(p_price);
+        p.setpDescription(p_description);
+        p.setCategory(p_category);
+        p.setStatus(p_status);
     }
 
     private void fillDefaultTextAndImage(Product p) {
