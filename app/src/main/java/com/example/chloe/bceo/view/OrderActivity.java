@@ -27,8 +27,7 @@ public class OrderActivity extends AppCompatActivity {
     ArrayList<Product> sellList = new ArrayList<Product>();
 
     private String[] buyArray;
-    private String[] sellerArray = {"Title: Cookie \n Price: $10 \n Buyer: Woojoo",
-            "Title: Cookie \n Price: $2 \n Buyer: Woojoo"};
+    private String[] sellerArray;
     private User user;
 
     @Override
@@ -52,8 +51,8 @@ public class OrderActivity extends AppCompatActivity {
         jsonString = httpGet.getResponse(urlStr);
         Log.d("[Browse Page] -> URL ", urlStr);
         Log.d("[Browse Page] -> Json ", jsonString);
-        // jsonParser(jsonString, sellList);
-        // buyArray = listToArray(sellList);
+        jsonParser(jsonString, sellList);
+        sellerArray = listToArray(sellList);
 
         ArrayAdapter adapterBuy = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, buyArray);
         ListView buyListView = (ListView) findViewById(R.id.listView2);
@@ -82,6 +81,7 @@ public class OrderActivity extends AppCompatActivity {
             //Start product activity
             Intent intent = new Intent(view.getContext(), ProductActivity.class);
             intent.putExtra("prod", buyList.get(position));
+            intent.putExtra("visibility", false);
             startActivityForResult(intent, 0);
         }
     }
@@ -99,7 +99,7 @@ public class OrderActivity extends AppCompatActivity {
             Toast.makeText(c, "Postion: "+ position + "\nID: " + id, Toast.LENGTH_SHORT).show();
 
             //Start product activity
-            Intent intent = new Intent(view.getContext(), ProductActivity.class);
+            Intent intent = new Intent(view.getContext(), SellActivity.class);
             intent.putExtra("prod", sellList.get(position));
             startActivityForResult(intent, 0);
         }

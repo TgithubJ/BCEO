@@ -32,6 +32,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private Product prod;
     private User user;
+    private boolean visibility = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,10 @@ public class ProductActivity extends AppCompatActivity {
 
         user = (User) getIntent().getSerializableExtra("user");
         prod = (Product) getIntent().getSerializableExtra("prod");
+        visibility = (boolean) getIntent().getBooleanExtra("visibility", true);
+
         Log.d("[ProductPage] ", prod.toString());
+        Log.d("[ProductPage] ", String.valueOf(visibility));
 
         iv = (ImageView) findViewById(R.id.imageView);
         description = (TextView) findViewById(R.id.textView18);
@@ -49,6 +53,8 @@ public class ProductActivity extends AppCompatActivity {
         waiting = (TextView) findViewById(R.id.textView17);
         seller = (TextView) findViewById(R.id.textView14);
         Button buyButton = (Button)findViewById(R.id.button2);
+        if (!visibility)
+            buyButton.setVisibility(View.INVISIBLE);
 
         setProductInfo(prod);
 
@@ -82,8 +88,8 @@ public class ProductActivity extends AppCompatActivity {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                passUserToOrder();
                 Intent myIntent = new Intent(v.getContext(), OrderActivity.class);
+                myIntent.putExtra("user", user);
                 startActivity(myIntent);
             }
         });
@@ -149,10 +155,5 @@ public class ProductActivity extends AppCompatActivity {
 //        byte[] decodedByte = Base64.decode(input, 0);
 //        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
 //    }
-    private void passUserToOrder() {
-        Intent intent = new Intent(this, OrderActivity.class);
-        //passing logged in user
-        intent.putExtra("user", user);
-        this.startActivity(intent);
-    }
+
 }
