@@ -84,34 +84,4 @@ public class HTTPGet {
         rd.close();
         return result.toString();
     }
-
-
-//    private class ConnectionGet extends AsyncTask {
-//
-//        @Override
-//        protected Object doInBackground(Object... arg0) {
-//            String res = getResponse("http://52.34.169.54:3000/images?id=15");
-//
-//            return null;
-//        }
-//    }
-//
-//    public HttpResponse makeRequest(String uri) {
-//        try {
-//
-//            HttpPost httpPost = new HttpPost(uri);
-//            httpPost.setEntity(new StringEntity(json));
-//            httpPost.setHeader("Accept", "application/json");
-//            httpPost.setHeader("Content-type", "application/json");
-//
-//            return new DefaultHttpClient().execute(httpPost);
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        } catch (ClientProtocolException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 }

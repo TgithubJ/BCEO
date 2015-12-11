@@ -139,18 +139,80 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
         android:ems="10"
         android:id="@+id/editText_name"
         android:layout_alignBottom="@+id/text_product_name"
-        android:layout_toEndOf="@+id/text_product_name" />
+        android:layout_toStartOf="@+id/button_upload" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText_price"
-        android:layout_below="@+id/text_product_name"
-        android:layout_toEndOf="@+id/text_product_name"
-        android:text="Price" />
+        android:ems="10"
+        android:layout_above="@+id/textView_description"
+        android:layout_alignStart="@+id/editText_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Description:"
+        android:textSize="25sp"
+        android:id="@+id/textView_description"
+        android:layout_below="@+id/text_product_price"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_description"
+        android:ems="10"
+        android:layout_alignBottom="@+id/textView_description"
+        android:layout_alignStart="@+id/editText_price" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="25sp"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView_description"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Category:"
+        android:textSize="25sp"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView_description"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerCategory"
+        android:entries="@array/category"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_alignStart="@+id/editText_description" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Status:"
+        android:textSize="25sp"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/spinnerCategory"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerStatus"
+        android:entries="@array/status"
+        android:layout_below="@+id/spinnerCategory"
+        android:layout_alignStart="@+id/spinnerCategory" />
 
 </RelativeLayout>
