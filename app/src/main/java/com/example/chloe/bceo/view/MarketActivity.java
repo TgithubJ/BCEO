@@ -2,6 +2,8 @@ package com.example.chloe.bceo.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +20,8 @@ import com.example.chloe.bceo.R;
 
 
 public class MarketActivity extends AppCompatActivity {
+    private static final String OUTPUT_FILE= Environment.getExternalStorageDirectory().getPath() + "/recordoutput.3gpp";
+    private MediaPlayer mediaPlayer;
 
     // references to our images
     private Integer[] mThumbIds = {
@@ -75,7 +79,7 @@ public class MarketActivity extends AppCompatActivity {
                 grid = (View)convertView;
             }
 
-            ImageView imageView = (ImageView)grid.findViewById(R.id.imagepart);
+            ImageView imageView = (ImageView) grid.findViewById(R.id.imagepart);
             TextView textView = (TextView)grid.findViewById(R.id.textpart);
             imageView.setImageResource(mThumbIds[position]);
             textView.setText(String.valueOf(position));
@@ -97,6 +101,12 @@ public class MarketActivity extends AppCompatActivity {
 
         ImageView iv = (ImageView) findViewById(R.id.imageView_back_arrow);
 
+        try {
+            playRecording();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         iv.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +122,26 @@ public class MarketActivity extends AppCompatActivity {
             startActivityForResult(myIntent, 0);
 //            UserSubmissionLog userSubmissionLogs= new UserSubmissionLog(position);
 //            System.out.println("Position "+position);
+        }
+    }
+
+    private void playRecording() throws Exception {
+        killMediaPlayer();
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(OUTPUT_FILE);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
+    private void killMediaPlayer()
+    {
+        if (mediaPlayer != null)
+        {
+            try {
+                mediaPlayer.release();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
