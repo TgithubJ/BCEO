@@ -8,7 +8,7 @@
     <string name="title_activity_groups">GroupsActivity</string>
 
     <string name="action_sign_up">Sign Up</string>
-    <string name="verify_email_text">Enter valid group email address</string>
+    <string name="verify_email_text">Enter valid group email address ending with: </string>
     <string name="title_activity_browse">BrowseActivity</string>
 
 
