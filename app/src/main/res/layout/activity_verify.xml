@@ -11,8 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Welcome to CMU-SV group"
+            android:id="@+id/textView3"
+            android:layout_gravity="center_horizontal" />
+
         <TextView android:text="@string/verify_email_text" android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ending with: "
+            android:id="@+id/emailDomainTextView" />
 
         <EditText
             android:layout_width="wrap_content"
