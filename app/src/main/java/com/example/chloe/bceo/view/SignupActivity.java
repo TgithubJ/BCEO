@@ -2,10 +2,8 @@ package com.example.chloe.bceo.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,13 +14,6 @@ import android.widget.Toast;
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
 
 public class SignupActivity extends Activity {
 
@@ -111,7 +102,7 @@ public class SignupActivity extends Activity {
 
         if( response.equals("s")) {
             Intent intent = new Intent(this, GroupsActivity.class);
-            User u = new User(0, user_email, user_password, 0, user_phone);
+            User u = new User(0, user_email.split("@")[0] ,user_email, user_password, 0, user_phone);
             intent.putExtra("user", u);
             this.startActivity(intent);
         } else if (response.toString().equals("f")){

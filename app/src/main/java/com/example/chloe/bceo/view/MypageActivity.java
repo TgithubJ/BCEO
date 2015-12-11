@@ -36,14 +36,13 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 
-
 public class MypageActivity extends AppCompatActivity {
     private ImageButton button;
-    private MediaPlayer mediaPlayer;
     private MediaRecorder recorder;
+    private MediaPlayer mediaPlayer;
     private Bitmap decodedImage;
     //private static final String OUTPUT_FILE= "/sdcard/recordoutput.3gpp";
-    private static final String OUTPUT_FILE= Environment.getExternalStorageDirectory().getPath() + "/recordoutput.3gpp";
+    private static final String OUTPUT_FILE = Environment.getExternalStorageDirectory().getPath() + "/recordoutput.3gpp";
     private User user;
 
     private ArrayList<Product> my_prodlist;
@@ -65,13 +64,11 @@ public class MypageActivity extends AppCompatActivity {
         user = FragmentBottomMenu.getUser();
         Log.d("[Mypage]", "User " + user.getGroupID() + " received!");
 
-
         final GridView gridview = (GridView) findViewById(R.id.gridview_mypage);
         gridview.setAdapter(new gridAdapter(this));
         gridview.setOnItemClickListener(new girdClickListener(MypageActivity.this));
 
 
-//        button = (ImageButton) this.findViewById(R.id.imageButton);
         ImageButton startBtn = (ImageButton) findViewById(R.id.imageButton2);
         ImageButton endBtn = (ImageButton) findViewById(R.id.imageButton5);
         ImageButton playRecordingBtn = (ImageButton) findViewById(R.id.imageButton6);
@@ -92,11 +89,9 @@ public class MypageActivity extends AppCompatActivity {
 //                }
 //        );
 
-        startBtn.setOnClickListener(new View.OnClickListener()
-        {
+        startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 try {
                     beginRecording();
                 } catch (Exception e) {
@@ -105,8 +100,7 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        endBtn.setOnClickListener(new View.OnClickListener()
-        {
+        endBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -117,8 +111,7 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        playRecordingBtn.setOnClickListener(new View.OnClickListener()
-        {
+        playRecordingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -129,8 +122,7 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        stpPlayingRecordingBtn.setOnClickListener(new View.OnClickListener()
-        {
+        stpPlayingRecordingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -268,9 +260,10 @@ public class MypageActivity extends AppCompatActivity {
                 int waitlist = Integer.parseInt(p.getString("waitlist"));
                 int image_id = Integer.parseInt(p.getString("image_id"));
                 int group_id = Integer.parseInt(p.getString("group_id"));
+                String status = p.getString("status");
 
 
-                Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category);
+                Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
                 Log.d("[Product] ", prod_tmp.toString());
                 my_prodlist.add(prod_tmp);
 
@@ -285,12 +278,10 @@ public class MypageActivity extends AppCompatActivity {
         }
     }
 
-    private void beginRecording() throws Exception
-    {
+    private void beginRecording() throws Exception {
         killMediaRecorder();
         File outFile = new File(OUTPUT_FILE);
-        if(outFile.exists())
-        {
+        if (outFile.exists()) {
             outFile.delete();
         }
         recorder = new MediaRecorder();
@@ -310,26 +301,20 @@ public class MypageActivity extends AppCompatActivity {
 
     }
 
-    private void stopRecording() throws Exception
-    {
-        if (recorder != null)
-        {
+    private void stopRecording() throws Exception {
+        if (recorder != null) {
             recorder.stop();
         }
     }
 
-    private void killMediaRecorder()
-    {
-        if (recorder != null)
-        {
+    private void killMediaRecorder() {
+        if (recorder != null) {
             recorder.release();
         }
     }
 
-    private void killMediaPlayer()
-    {
-        if (mediaPlayer != null)
-        {
+    private void killMediaPlayer() {
+        if (mediaPlayer != null) {
             try {
                 mediaPlayer.release();
             } catch (Exception e) {
@@ -346,27 +331,41 @@ public class MypageActivity extends AppCompatActivity {
         mediaPlayer.start();
     }
 
-    private void stopPlayingRecording() throws Exception
-    {
-        if(mediaPlayer!=null)
-        {
+    private void stopPlayingRecording() throws Exception {
+        if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         killMediaRecorder();
         killMediaPlayer();
     }
-    public static Bitmap decodeBase64(String input)
-    {
+
+    public static Bitmap decodeBase64(String input) {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
+
+//    public static String encodeTobase64(String filePath) {
+//        File dir = Environment.getExternalStorageDirectory();
+//        File file = new File(dir, filePath);
+//        byte[] bytes = new byte[0];
+//        InputStream in = null;
+//        try {
+//            bytes = Files.readAllBytes(filePath);
+//        }
+//        catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String voiceEncoded = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
+//        return voiceEncoded;
+//    }
+
 }
-
-
 

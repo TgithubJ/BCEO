@@ -1,11 +1,9 @@
 package com.example.chloe.bceo.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,11 +40,11 @@ public class BrowseActivity extends AppCompatActivity {
     ArrayList<Product> gridProdList = new ArrayList<Product>();
     ProductAdapter productAdapter;
 
+
     Spinner category;
     Button button_filter;
     String filter_category = "all";
-
-    public User user;
+    private User user;
 
     // references to our images
 //    private Integer[] mThumbIds = {
@@ -134,6 +132,7 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         user = (User) getIntent().getSerializableExtra("user");
+
         FragmentBottomMenu.setUser(user);
 
         productAdapter = new ProductAdapter();
@@ -199,6 +198,7 @@ public class BrowseActivity extends AppCompatActivity {
 
             //Start product activity
             Intent intent = new Intent(view.getContext(), ProductActivity.class);
+            intent.putExtra("user", user);
             intent.putExtra("prod", productList.get(position));
             startActivityForResult(intent, 0);
 
@@ -223,16 +223,16 @@ public class BrowseActivity extends AppCompatActivity {
 //                if (category.equals("electronics")) {
 ////                if (filter_category.equals("ALL") || category.equals(filter_category)) {
 
-                    int id = Integer.parseInt(p.getString("id"));
-                    String name = p.getString("name");
-                    float price = Float.parseFloat(p.getString("price"));
-                    String description = p.getString("description");
-                    int waitlist = Integer.parseInt(p.getString("waitlist"));
-                    int image_id = Integer.parseInt(p.getString("image_id"));
-                    int group_id = Integer.parseInt(p.getString("group_id"));
+                int id = Integer.parseInt(p.getString("id"));
+                String name = p.getString("name");
+                float price = Float.parseFloat(p.getString("price"));
+                String description = p.getString("description");
+                int waitlist = Integer.parseInt(p.getString("waitlist"));
+                int image_id = Integer.parseInt(p.getString("image_id"));
+                int group_id = Integer.parseInt(p.getString("group_id"));
+                String status = p.getString("status");
 
-
-                    Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category);
+                Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
                 Log.d("[Product] ", prod_tmp.toString());
                     productAdapter.addProduct(prod_tmp);
 

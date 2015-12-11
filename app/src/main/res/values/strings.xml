@@ -13,6 +13,7 @@
 
 
     <string-array name="group_list">
+        <item>Search group..</item>
         <item>CMU-SV</item>
         <item>CMU</item>
     </string-array>

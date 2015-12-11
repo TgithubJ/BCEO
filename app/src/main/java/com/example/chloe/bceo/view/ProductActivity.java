@@ -2,12 +2,9 @@ package com.example.chloe.bceo.view;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,9 +16,6 @@ import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 
 public class ProductActivity extends AppCompatActivity {
     private Bitmap imagefile;
@@ -37,14 +31,21 @@ public class ProductActivity extends AppCompatActivity {
     private ImageView iv;
 
     private Product prod;
+    private User user;
+    private boolean visibility = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        user = (User) getIntent().getSerializableExtra("user");
         prod = (Product) getIntent().getSerializableExtra("prod");
+        visibility = (boolean) getIntent().getBooleanExtra("visibility", true);
+
         Log.d("[ProductPage] ", prod.toString());
+        Log.d("[ProductPage] ", String.valueOf(visibility));
+        Log.d("[ProductPage] ", user.getUserName());
 
         iv = (ImageView) findViewById(R.id.imageView);
         description = (TextView) findViewById(R.id.textView18);
@@ -53,6 +54,8 @@ public class ProductActivity extends AppCompatActivity {
         waiting = (TextView) findViewById(R.id.textView17);
         seller = (TextView) findViewById(R.id.textView14);
         Button buyButton = (Button)findViewById(R.id.button2);
+        if (!visibility)
+            buyButton.setVisibility(View.INVISIBLE);
 
         setProductInfo(prod);
 
@@ -87,6 +90,7 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), OrderActivity.class);
+                myIntent.putExtra("user", user);
                 startActivity(myIntent);
             }
         });
@@ -152,4 +156,5 @@ public class ProductActivity extends AppCompatActivity {
 //        byte[] decodedByte = Base64.decode(input, 0);
 //        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
 //    }
+
 }
