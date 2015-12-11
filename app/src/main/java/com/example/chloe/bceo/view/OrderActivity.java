@@ -80,6 +80,7 @@ public class OrderActivity extends AppCompatActivity {
 
             //Start product activity
             Intent intent = new Intent(view.getContext(), ProductActivity.class);
+            intent.putExtra("user", user);
             intent.putExtra("prod", buyList.get(position));
             intent.putExtra("visibility", false);
             startActivityForResult(intent, 0);

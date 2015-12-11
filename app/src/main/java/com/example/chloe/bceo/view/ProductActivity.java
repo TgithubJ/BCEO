@@ -17,6 +17,9 @@ import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ProductActivity extends AppCompatActivity {
     private Bitmap imagefile;
     private Bitmap decodedImage;
@@ -59,23 +62,18 @@ public class ProductActivity extends AppCompatActivity {
 
         setProductInfo(prod);
 
-//        imagefile = BitmapFactory.decodeResource(this.getResources(), R.drawable.androider_01);
-//        encodedImage = encodeTobase64(imagefile);
-//        decodedImage = decodeBase64(encodedImage);
-//        iv.setImageBitmap(decodedImage);
-//        description.setText(encodedImage);
-//        new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(MY_URL_STRING);
 
-//        DatabaseConnector databaseConnector = new DatabaseConnector(this);
-//        Read databaseReader = new Read();
-//        Cursor cursor = databaseReader.getOneProduct(1, databaseConnector);
-//        cursor.moveToFirst();
-//        title.setText(cursor.getString(1));
-//        price.setText(Float.toString(cursor.getFloat(2)));
-//        waiting.setText(Integer.toString(cursor.getInt(4)));
-//        description.setText(cursor.getString(3));
-//        decodedImage = decodeBase64(cursor.getString(5));
-//        iv.setImageBitmap(decodedImage);
+
+        HTTPGet httpGet = new HTTPGet();
+        String urlStr = httpGet.buildURL("seller_info?product_id=" + prod.getpID());
+        String response = httpGet.getResponse(urlStr);
+        JSONObject job = null;
+        try {
+            job = new JSONObject(response);
+            seller.setText(job.getString("name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         seller.setTypeface(null, Typeface.BOLD_ITALIC);
         seller.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +88,7 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 HTTPGet httpGet = new HTTPGet();
-                String urlStr = httpGet.buildURL("buy_product?user_id=" + user.getUserID() + "product_id=" + prod.getpID());
+                String urlStr = httpGet.buildURL("buy_product?user_id=" + user.getUserID() + "&product_id=" + prod.getpID());
                 httpGet.getResponse(urlStr);
 
                 Intent myIntent = new Intent(v.getContext(), OrderActivity.class);
