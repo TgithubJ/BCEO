@@ -89,6 +89,10 @@ public class ProductActivity extends AppCompatActivity {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HTTPGet httpGet = new HTTPGet();
+                String urlStr = httpGet.buildURL("buy_product?user_id=" + user.getUserID() + "product_id=" + prod.getpID());
+                httpGet.getResponse(urlStr);
+
                 Intent myIntent = new Intent(v.getContext(), OrderActivity.class);
                 myIntent.putExtra("user", user);
                 startActivity(myIntent);
