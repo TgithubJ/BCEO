@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private int userID;
     private String userEmail;
+    private String password;
     private String userName;
     private int groupID;
     private String phoneNum;
@@ -32,8 +33,6 @@ public class User implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    private String password;
 
     public int getGroupID() {
         return groupID;
