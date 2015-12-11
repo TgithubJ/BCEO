@@ -5,6 +5,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/main_background"
     tools:context="com.example.chloe.bceo.view.LoginActivity">
 
     <!-- Signin progress -->
@@ -19,14 +20,15 @@
             android:layout_height="wrap_content" android:orientation="vertical">
 
             <AutoCompleteTextView android:id="@+id/email" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress" android:maxLines="1"
+                android:layout_height="wrap_content" android:hint="@string/prompt_email" android:textColorHint="#847f82"
+                android:textColor="#847f82" android:inputType="textEmailAddress" android:maxLines="1"
                 android:singleLine="true" />
 
             <EditText android:id="@+id/password" android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:hint="@string/prompt_password"
+                android:layout_height="wrap_content" android:hint="@string/prompt_password" android:textColorHint="#847f82"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
+                android:textColor="#847f82"
                 android:imeOptions="actionUnspecified" android:inputType="textPassword"
                 android:maxLines="1" android:singleLine="true" />
 
@@ -35,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:ems="10"
-                android:hint="@string/prompt_phonenumber"
+                android:textColor="#847f82"
+                android:hint="@string/prompt_phonenumber" android:textColorHint="#847f82"
                 android:id="@+id/phonenumber" />
 
             <Button android:id="@+id/sign_up_button" style="?android:textAppearanceSmall"
