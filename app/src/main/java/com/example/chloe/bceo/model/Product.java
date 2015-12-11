@@ -16,13 +16,7 @@ public class Product implements Serializable{
     private String category;
     private String status;
 
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public Product(int pID, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category, String status){
         setpID(pID);
@@ -36,6 +30,13 @@ public class Product implements Serializable{
         setStatus(status);
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getpID() {
         return pID;
@@ -129,6 +130,9 @@ public class Product implements Serializable{
 
         sb.append("category: ");
         sb.append(getCategory()); sb.append("\n");
+
+        sb.append("status: ");
+        sb.append(getStatus()); sb.append("\n");
 
         return sb.toString();
     }
