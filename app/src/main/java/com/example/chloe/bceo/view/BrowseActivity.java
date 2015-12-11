@@ -148,7 +148,7 @@ public class BrowseActivity extends AppCompatActivity {
 
         //Get json
         HTTPGet httpGet = new HTTPGet();
-        String urlStr = httpGet.buildURL("products");
+        String urlStr = httpGet.buildURL("products?group_id=" + user.getGroupID());
         String jsonString = httpGet.getResponse(urlStr);
         Log.d("[Browse Page] -> URL: ", urlStr);
         Log.d("[Browse Page] -> Json: ", jsonString);
@@ -233,7 +233,7 @@ public class BrowseActivity extends AppCompatActivity {
 
 
                     Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category);
-                    Log.d("[Product] ", prod_tmp.toString());
+                Log.d("[Product] ", prod_tmp.toString());
                     productAdapter.addProduct(prod_tmp);
 
 //                    Log.d("[Product] ", prod_tmp.toString());
