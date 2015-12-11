@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +20,6 @@ import com.example.chloe.bceo.util.HTTPGet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class VerifyActivity extends Activity {
     private Button send_verify_email;
@@ -161,13 +156,14 @@ public class VerifyActivity extends Activity {
         try  {
             JSONObject job = new JSONObject(response);
             int login_id = job.getInt("id");
+            String login_name = job.getString("name");
             String login_email = job.getString("email");
             String login_password = job.getString("password");
             String login_phone = job.getString("phone");
             int login_groupId = job.getInt("group_id");
 
             user = new User(
-                    login_id, login_email, login_password, login_groupId, login_phone);
+                    login_id, login_name, login_email, login_password, login_groupId, login_phone);
         } catch (JSONException e) {
             Log.w("ERROR:", "response not in JSON form!");
         }

@@ -132,6 +132,7 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         user = (User) getIntent().getSerializableExtra("user");
+
         FragmentBottomMenu.setUser(user);
 
         productAdapter = new ProductAdapter();
@@ -195,10 +196,9 @@ public class BrowseActivity extends AppCompatActivity {
             //Dialog: show which item clicked
             Toast.makeText(c, "Postion: "+ position + "\nID: " + id, Toast.LENGTH_SHORT).show();
 
-            passUserToProduct();
-
             //Start product activity
             Intent intent = new Intent(view.getContext(), ProductActivity.class);
+            intent.putExtra("user", user);
             intent.putExtra("prod", productList.get(position));
             startActivityForResult(intent, 0);
 
@@ -267,13 +267,6 @@ public class BrowseActivity extends AppCompatActivity {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
-    }
-
-    private void passUserToProduct() {
-        Intent intent = new Intent(this, ProductActivity.class);
-        //passing logged in user
-        intent.putExtra("user", user);
-        this.startActivity(intent);
     }
 }
 
