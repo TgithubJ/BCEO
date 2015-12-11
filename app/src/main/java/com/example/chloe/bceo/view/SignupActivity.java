@@ -85,6 +85,20 @@ public class SignupActivity extends Activity {
         String user_password = passwordEditText.getText().toString();
         String user_phone = phoneEditText.getText().toString();
 
+        if (!isEmailValid(user_email)) {
+            Toast.makeText(this.getApplicationContext(),
+                    "Invalid email format, try again", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (!isPasswordValid(user_password)) {
+            Toast.makeText(this.getApplicationContext(),
+                    "password too short, at least 5 letters!!", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (!isPhoneValid(user_phone)) {
+            Toast.makeText(this.getApplicationContext(),
+                    "phone number cannot be empty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // ubuntu remote server with signup GET request
         StringBuilder tail =
                 new StringBuilder("/signup?");
@@ -102,10 +116,24 @@ public class SignupActivity extends Activity {
             this.startActivity(intent);
         } else if (response.toString().equals("f")){
             Toast.makeText(this.getApplicationContext(),
-                    "user with same email already exist", Toast.LENGTH_SHORT).show();
+                    "user with same email already exist, try again", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this.getApplicationContext(),
                     "sign up failed, try again", Toast.LENGTH_SHORT).show();
         }
     }
+
+
+    private boolean isEmailValid(String email) {
+        return email.contains("@") && email.contains(".");
+    }
+
+    private boolean isPasswordValid(String password) {
+        return password.length() > 4;
+    }
+
+    private boolean isPhoneValid(String password) {
+        return password.length() > 0;
+    }
+
 }
