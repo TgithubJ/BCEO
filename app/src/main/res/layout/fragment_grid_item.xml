@@ -11,11 +11,15 @@
     <TextView
         android:id="@+id/textpart"
         android:layout_width="200dp"
+        android:text="Toaster"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
     <TextView
         android:id="@+id/text_price"
         android:layout_width="200dp"
+        android:text="$2.0"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
