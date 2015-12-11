@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.fragment.FragmentBottomMenu;
 import com.example.chloe.bceo.model.Product;
+import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
 
@@ -39,6 +42,8 @@ public class BrowseActivity extends AppCompatActivity {
     Spinner category;
     Button button_filter;
     String filter_category = "all";
+
+    public User user;
 
     // references to our images
 //    private Integer[] mThumbIds = {
@@ -125,6 +130,9 @@ public class BrowseActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        user = (User) getIntent().getSerializableExtra("user");
+        FragmentBottomMenu.setUser(user);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
