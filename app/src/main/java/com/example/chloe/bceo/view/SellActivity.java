@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
@@ -25,6 +27,7 @@ import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.HTTPPost;
+import com.example.chloe.bceo.util.HTTPPut;
 import com.example.chloe.bceo.util.Image64Base;
 
 import java.io.File;
@@ -40,7 +43,16 @@ public class SellActivity extends AppCompatActivity {
     private DisplayMetrics mPhone;
     private int imagePos = 0;
     ImageView image_preview;
+
     public User user;
+    public Product p;
+    String cmd;
+
+    private EditText et_name;
+    private EditText et_price;
+    private EditText et_description;
+    private Spinner spinner_category;
+    private Spinner spinner_status;
 
     private Integer[] imageId = {
             R.id.imageScroll1,
@@ -62,12 +74,29 @@ public class SellActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell);
 
-        user = FragmentBottomMenu.getUser();
-
         buttonComfirm = (Button) this.findViewById(R.id.button);
         Button buttonCamera = (Button) findViewById(R.id.button_camera);
         Button buttonPhoto = (Button) findViewById(R.id.button_upload);
+
         image_preview = (ImageView) findViewById(R.id.image_product_preview);
+
+        et_name = (EditText) findViewById(R.id.editText_name);;
+        et_price = (EditText) findViewById(R.id.editText_price);
+        et_description = (EditText) findViewById(R.id.editText_description);
+        spinner_category = (Spinner) findViewById(R.id.spinnerCategory);
+        spinner_status = (Spinner) findViewById(R.id.spinnerStatus);
+
+        //Get user and command
+        user = FragmentBottomMenu.getUser();
+        cmd = (String) getIntent().getSerializableExtra("cmd");
+
+        //If for update purpose, get a product
+        if (cmd.equals("update")){
+            p = (Product) getIntent().getSerializableExtra("prod");
+            Log.d("[SellPage]", "Product received: id = " + p.getpName() );
+
+            fillDefaultTextAndImage(p);
+        }
 
 
         //Read smartphone resolution
@@ -128,18 +157,25 @@ public class SellActivity extends AppCompatActivity {
 
 //                        //To save bitmap to server
 //                        image_preview.setImageResource(R.drawable.androider_03);
-                        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
-                        int image_id = saveImageOnServerSide(bd.getBitmap());
 
-                        EditText et_name = (EditText) findViewById(R.id.editText_name);
-                        String p_name = et_name.getText().toString();
+                        if (cmd.equals("null")){
+                            BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
+                            int image_id = saveImageOnServerSide(bd.getBitmap());
 
-                        EditText et_price = (EditText) findViewById(R.id.editText_price);
-                        float p_price = Float.parseFloat(et_price.getText().toString());
+                            String p_name = et_name.getText().toString();
 
-                        //Upload product details
-                        int product_id = uploadProductOnServerSide(7, p_name, (float)p_price, "Have fun!", 0, image_id, 1, "electronics");
+                            float p_price = Float.parseFloat(et_price.getText().toString());
 
+                            //Upload product details
+                            int product_id = uploadProductOnServerSide(7, p_name, (float) p_price, "Have fun!", 0, image_id, 1, "electronics");
+
+                            Toast.makeText(SellActivity.this, "Upload Product Successfully!", Toast.LENGTH_LONG).show();
+                        }else{
+                            HTTPPut httpPut = new HTTPPut(p);
+                            httpPut.execute(p.getpID());
+
+                            Toast.makeText(SellActivity.this, "Update Product Successfully!", Toast.LENGTH_LONG).show();
+                        }
 //                        //Get image from server
 //                        HTTPGet httpGet = new HTTPGet();
 //                        String urlStr = httpGet.buildURL("images?id=15");
@@ -155,15 +191,47 @@ public class SellActivity extends AppCompatActivity {
 //                        image_preview.setImageBitmap(bm);
 
 
-                        Toast.makeText(SellActivity.this, "Upload Product Successfully!", Toast.LENGTH_LONG).show();
-//                        Intent intent = new Intent(v.getContext(), ProductActivity.class);
-//                        intent.putExtra("user", user);
-//                        startActivityForResult(intent, 0);
+
                         startActivity(new Intent(v.getContext(), MypageActivity.class));
                     }
                 }
         );
 
+
+    }
+
+    private void fillDefaultTextAndImage(Product p) {
+//        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
+//        int image_id = saveImageOnServerSide(bd.getBitmap());
+
+        //Set name
+        String p_name = p.getpName();
+        et_name.setText(p_name, TextView.BufferType.EDITABLE);
+
+        //Set price
+        String p_price = Float.toString(p.getpPrice());
+        et_price.setText(p_price, TextView.BufferType.EDITABLE);
+
+        //Set description
+        String p_description = p.getpDescription();
+        et_description.setText(p_description, TextView.BufferType.EDITABLE);
+
+        //Set spinner
+        spinner_status.setSelection(1);
+        spinner_category.setSelection(2);
+
+        //Set image
+        String image_id = Integer.toString(p.getImageId());
+        HTTPGet httpGet = new HTTPGet();
+        String urlStr = httpGet.buildURL("images?id=" + image_id);
+        String response = httpGet.getResponse(urlStr);
+        Log.d("[HTTPGet]", urlStr);
+        Log.d("[HTTPGet]", response);
+
+        Bitmap bm = Image64Base.decodeBase64(response);
+
+        //ImageView
+        image_preview.setImageBitmap(bm);
 
     }
 

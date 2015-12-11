@@ -67,6 +67,7 @@ public class FragmentBottomMenu extends Fragment {
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), SellActivity.class);
                 myIntent.putExtra("user", user);
+                myIntent.putExtra("cmd", "upload");
                 startActivity(myIntent);
             }
         });

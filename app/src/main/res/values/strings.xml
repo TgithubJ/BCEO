@@ -27,6 +27,19 @@
         <item>Textbook</item>
     </string-array>
 
+    <string-array name="category">
+        <item>Electronics</item>
+        <item>Furniture</item>
+        <item>Apartment</item>
+        <item>Foodie</item>
+        <item>Textbook</item>
+    </string-array>
+
+    <string-array name="status">
+        <item>available</item>
+        <item>soldout</item>
+    </string-array>
+
     <string name="title_activity_product">ProductActivity</string>
     <string name="title_activity_market">MarketActivity</string>
 
