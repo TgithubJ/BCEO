@@ -151,4 +151,5 @@ public class GroupsActivity extends AppCompatActivity {
         intent.putExtra("user", user);
         this.startActivity(intent);
     }
+
 }

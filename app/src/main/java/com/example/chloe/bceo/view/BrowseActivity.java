@@ -1,11 +1,9 @@
 package com.example.chloe.bceo.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chloe.bceo.Adapter.ProductAdapter;
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.fragment.FragmentBottomMenu;
 import com.example.chloe.bceo.model.Product;
@@ -36,14 +35,16 @@ import java.util.ArrayList;
 
 public class BrowseActivity extends AppCompatActivity {
 
-    ArrayList<Product> productList = new ArrayList<Product>();
+    ArrayList<Product> productList;
+//    ArrayList<Product> productList = new ArrayList<Product>();
     ArrayList<Product> gridProdList = new ArrayList<Product>();
+    ProductAdapter productAdapter;
+
 
     Spinner category;
     Button button_filter;
     String filter_category = "all";
-
-    public User user;
+    private User user;
 
     // references to our images
 //    private Integer[] mThumbIds = {
@@ -133,6 +134,9 @@ public class BrowseActivity extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("user");
         FragmentBottomMenu.setUser(user);
 
+        productAdapter = new ProductAdapter();
+        productList = productAdapter.getProductList();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
@@ -142,7 +146,7 @@ public class BrowseActivity extends AppCompatActivity {
 
         //Get json
         HTTPGet httpGet = new HTTPGet();
-        String urlStr = httpGet.buildURL("products");
+        String urlStr = httpGet.buildURL("products?group_id=" + user.getGroupID());
         String jsonString = httpGet.getResponse(urlStr);
         Log.d("[Browse Page] -> URL: ", urlStr);
         Log.d("[Browse Page] -> Json: ", jsonString);
@@ -191,6 +195,8 @@ public class BrowseActivity extends AppCompatActivity {
             //Dialog: show which item clicked
             Toast.makeText(c, "Postion: "+ position + "\nID: " + id, Toast.LENGTH_SHORT).show();
 
+            passUserToProduct();
+
             //Start product activity
             Intent intent = new Intent(view.getContext(), ProductActivity.class);
             intent.putExtra("prod", productList.get(position));
@@ -217,19 +223,20 @@ public class BrowseActivity extends AppCompatActivity {
 //                if (category.equals("electronics")) {
 ////                if (filter_category.equals("ALL") || category.equals(filter_category)) {
 
-                    int id = Integer.parseInt(p.getString("id"));
-                    String name = p.getString("name");
-                    float price = Float.parseFloat(p.getString("price"));
-                    String description = p.getString("description");
-                    int waitlist = Integer.parseInt(p.getString("waitlist"));
-                    int image_id = Integer.parseInt(p.getString("image_id"));
-                    int group_id = Integer.parseInt(p.getString("group_id"));
+                int id = Integer.parseInt(p.getString("id"));
+                String name = p.getString("name");
+                float price = Float.parseFloat(p.getString("price"));
+                String description = p.getString("description");
+                int waitlist = Integer.parseInt(p.getString("waitlist"));
+                int image_id = Integer.parseInt(p.getString("image_id"));
+                int group_id = Integer.parseInt(p.getString("group_id"));
+                String status = p.getString("status");
 
+                Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
+                Log.d("[Product] ", prod_tmp.toString());
+                    productAdapter.addProduct(prod_tmp);
 
-                    Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category);
-                    productList.add(prod_tmp);
-
-                    Log.d("[Product] ", prod_tmp.toString());
+//                    Log.d("[Product] ", prod_tmp.toString());
 
 //                }
             }
@@ -260,6 +267,13 @@ public class BrowseActivity extends AppCompatActivity {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
+    }
+
+    private void passUserToProduct() {
+        Intent intent = new Intent(this, ProductActivity.class);
+        //passing logged in user
+        intent.putExtra("user", user);
+        this.startActivity(intent);
     }
 }
 

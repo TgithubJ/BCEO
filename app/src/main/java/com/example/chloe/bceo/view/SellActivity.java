@@ -1,5 +1,6 @@
 package com.example.chloe.bceo.view;
 
+import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +20,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.fragment.FragmentBottomMenu;
 import com.example.chloe.bceo.model.Product;
+import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.HTTPPost;
 import com.example.chloe.bceo.util.Image64Base;
@@ -37,6 +40,7 @@ public class SellActivity extends AppCompatActivity {
     private DisplayMetrics mPhone;
     private int imagePos = 0;
     ImageView image_preview;
+    public User user;
 
     private Integer[] imageId = {
             R.id.imageScroll1,
@@ -57,6 +61,9 @@ public class SellActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell);
+
+        user = FragmentBottomMenu.getUser();
+
         buttonComfirm = (Button) this.findViewById(R.id.button);
         Button buttonCamera = (Button) findViewById(R.id.button_camera);
         Button buttonPhoto = (Button) findViewById(R.id.button_upload);
@@ -147,10 +154,12 @@ public class SellActivity extends AppCompatActivity {
 //                        Bitmap bm = Image64Base.decodeBase64(response);
 //                        image_preview.setImageBitmap(bm);
 
-//                        startActivity(new Intent(v.getContext(), MypageActivity.class));
 
-
-
+                        Toast.makeText(SellActivity.this, "Upload Product Successfully!", Toast.LENGTH_LONG).show();
+//                        Intent intent = new Intent(v.getContext(), ProductActivity.class);
+//                        intent.putExtra("user", user);
+//                        startActivityForResult(intent, 0);
+                        startActivity(new Intent(v.getContext(), MypageActivity.class));
                     }
                 }
         );
