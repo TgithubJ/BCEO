@@ -7,15 +7,20 @@ import java.util.ArrayList;
 /**
  * Created by HsiangLin on 12/10/15.
  */
+
 public class ProductAdapter {
-//    public static ArrayList<Product> productList;
-//
-//    public void ProductAdapter(){
-//    }
-//
-//    public void ProductAdapter(){
-//        ArrayList<Product> productList = new ArrayList<Product>();
-//    }
-//
-//
+    public static ArrayList<Product> productList;
+
+    public ProductAdapter(){
+       productList = new ArrayList<Product>();
+    }
+
+    public static ArrayList<Product> getProductList(){
+        return productList;
+    }
+
+    public void addProduct(Product p){
+        productList.add(p);
+    }
+
 }
