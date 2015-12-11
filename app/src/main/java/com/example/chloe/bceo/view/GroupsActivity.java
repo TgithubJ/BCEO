@@ -11,19 +11,24 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class GroupsActivity extends AppCompatActivity {
-    private ImageButton groupImageButton;
+    private ImageButton groupImageButton_1;
 
     private Spinner all_groups;
     private Button join;
+    private ImageButton refreshButton;
 
-    private TextView tmp;
+    private TextView no_group_text;
     private Image64Base imageUtil;
     private HTTPGet httpUtil;
 
@@ -36,28 +41,29 @@ public class GroupsActivity extends AppCompatActivity {
 
         /* retrieve logged in user in JSON format
         {"id":9, "email":"woojoos1@andrew.cmu.edu",
-        "phone":"4109712779", "group_id":2}
-        */
+        "phone":"4109712779", "group_id":2} */
         user = (User) getIntent().getSerializableExtra("user");
 
-        groupImageButton = (ImageButton) findViewById(R.id.groupImage);
-        tmp = (TextView) findViewById(R.id.userView);
+        groupImageButton_1 = (ImageButton) findViewById(R.id.groupImageButton1);
+
+        no_group_text = (TextView) findViewById(R.id.noGroupTextView);
         all_groups = (Spinner) findViewById(R.id.group_spinner);
         join = (Button) findViewById(R.id.join_group);
+        refreshButton = (ImageButton) findViewById(R.id.refreshButton);
 
         Log.w("ERROR:", (Integer.toString(user.getGroupID())));
 
+        // group_id = 0 is the default when signing up, so 0 = no group
         if (user.getGroupID() == 0) {
-            tmp.setText("No joined group yet!");
-
+            no_group_text.setText("No joined group yet!");
         } else {
             String urlStr = httpUtil.buildURL("group_logo?id=" + user.getGroupID());
             String response = httpUtil.getResponse(urlStr);
 
-            groupImageButton.setImageBitmap(imageUtil.decodeBase64(response));
+            groupImageButton_1.setImageBitmap(imageUtil.decodeBase64(response));
         }
 
-        groupImageButton.setOnClickListener(new View.OnClickListener() {
+        groupImageButton_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 browse();
@@ -68,6 +74,13 @@ public class GroupsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 joinGroup();
+            }
+        });
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
             }
         });
 
@@ -100,10 +113,42 @@ public class GroupsActivity extends AppCompatActivity {
     }
 
     private void joinGroup() {
+        String group_name = all_groups.getSelectedItem().toString();
+        if (group_name.equals("Search group..")) {
+            Toast.makeText(GroupsActivity.this,
+                    "Select the group to join first!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Intent intent = new Intent(this, VerifyActivity.class);
         //passing logged in user
         intent.putExtra("user", user);
-        intent.putExtra("group", all_groups.getSelectedItem().toString());
+        intent.putExtra("group", group_name);
+        this.startActivity(intent);
+    }
+
+    private void refresh() {
+        // update group id if email is verified
+        StringBuilder tail =
+                new StringBuilder("login?");
+        tail.append("email=" + user.getUserEmail());
+        tail.append("&pw=" + user.getPassword());
+
+        String urlStr = httpUtil.buildURL(tail.toString());
+        String response = httpUtil.getResponse(urlStr);
+
+        try  {
+            JSONObject job = new JSONObject(response);
+            int login_groupId = job.getInt("group_id");
+
+            user.setGroupID(login_groupId);
+        } catch (JSONException e) {
+            Log.w("ERROR:", "response not in JSON form!");
+        }
+
+        Intent intent = new Intent(this, GroupsActivity.class);
+        //passing updated user
+        intent.putExtra("user", user);
         this.startActivity(intent);
     }
 
