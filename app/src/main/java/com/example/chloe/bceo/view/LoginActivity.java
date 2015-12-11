@@ -16,10 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
@@ -165,13 +161,15 @@ public class LoginActivity extends AppCompatActivity  {
             try  {
                 JSONObject job = new JSONObject(response);
                 int login_id = job.getInt("id");
+                String login_name = job.getString("name");
                 String login_email = job.getString("email");
                 String login_password = job.getString("password");
                 String login_phone = job.getString("phone");
                 int login_groupId = job.getInt("group_id");
 
                 User u = new User(
-                        login_id, login_email, login_password, login_groupId, login_phone);
+                        login_id, login_name,login_email, login_password, login_groupId,
+                                                                          login_phone);
 
                 // Success loging in, so go to Group page
                 Intent intent = new Intent(this, GroupsActivity.class);

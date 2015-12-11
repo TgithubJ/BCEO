@@ -45,6 +45,7 @@ public class ProductActivity extends AppCompatActivity {
 
         Log.d("[ProductPage] ", prod.toString());
         Log.d("[ProductPage] ", String.valueOf(visibility));
+        Log.d("[ProductPage] ", user.getUserName());
 
         iv = (ImageView) findViewById(R.id.imageView);
         description = (TextView) findViewById(R.id.textView18);
