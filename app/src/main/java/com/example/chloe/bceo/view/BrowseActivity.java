@@ -18,7 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chloe.bceo.Adapter.ProductAdapter;
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.fragment.FragmentBottomMenu;
 import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
@@ -33,8 +35,10 @@ import java.util.ArrayList;
 
 public class BrowseActivity extends AppCompatActivity {
 
-    ArrayList<Product> productList = new ArrayList<Product>();
+    ArrayList<Product> productList;
+//    ArrayList<Product> productList = new ArrayList<Product>();
     ArrayList<Product> gridProdList = new ArrayList<Product>();
+    ProductAdapter productAdapter;
 
 
     Spinner category;
@@ -127,11 +131,14 @@ public class BrowseActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        user = (User) getIntent().getSerializableExtra("user");
+        FragmentBottomMenu.setUser(user);
+
+        productAdapter = new ProductAdapter();
+        productList = productAdapter.getProductList();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
-
-        // get user object from GroupActivity
-        user = (User) getIntent().getSerializableExtra("user");
 
         final GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setAdapter(new MyAdapter(this));
@@ -226,9 +233,10 @@ public class BrowseActivity extends AppCompatActivity {
 
 
                     Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category);
-                    productList.add(prod_tmp);
-
                     Log.d("[Product] ", prod_tmp.toString());
+                    productAdapter.addProduct(prod_tmp);
+
+//                    Log.d("[Product] ", prod_tmp.toString());
 
 //                }
             }

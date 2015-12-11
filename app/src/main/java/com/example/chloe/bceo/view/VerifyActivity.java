@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
@@ -23,6 +24,7 @@ import com.example.chloe.bceo.util.HTTPGet;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class VerifyActivity extends Activity {
     private Button send_verify_email;
@@ -30,6 +32,8 @@ public class VerifyActivity extends Activity {
 
     private User user;
     private String group_name;
+    private TextView groupDomain;
+    private String group_domain_response;
     private String group_id;
     private EditText userGroupEmail;
     private boolean sentEmailFlag;
@@ -46,8 +50,14 @@ public class VerifyActivity extends Activity {
         group_name = (String) getIntent().getSerializableExtra("group");
         String url = httpUtil.buildURL("group_id?name=" + group_name);
         group_id = httpUtil.getResponse(url);
-
         userGroupEmail = (EditText) findViewById(R.id.user_group_email);
+
+        groupDomain = (TextView) findViewById(R.id.emailDomainTextView);
+
+        group_domain_response = httpUtil.getResponse(
+                httpUtil.buildURL("group_domain?id=" + group_id));
+        groupDomain.setText("Ending with: " + group_domain_response);
+
         send_verify_email = (Button) findViewById(R.id.send_verification);
         confirm_verified_button = (Button) findViewById(R.id.return_to_group);
 
@@ -106,10 +116,9 @@ public class VerifyActivity extends Activity {
         String subject = "Please verify";
         String body = new StringBuilder().append("http://52.34.169.54:3000/update_group?id="
                 + user.getUserEmail() + "&group_id=" + group_id).toString();
-        String response = httpUtil.getResponse(
-                httpUtil.buildURL("group_domain?id=" + group_id));
 
-        if (!response.equals(user_email_domain)) {
+
+        if (!group_domain_response.equals(user_email_domain)) {
             Toast.makeText(VerifyActivity.this,
                     "Your email domain doesn't match with group email domain",
                     Toast.LENGTH_LONG).show();
@@ -187,12 +196,12 @@ public class VerifyActivity extends Activity {
             }
         });
 
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        /*alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
-        });
+        });*/
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();

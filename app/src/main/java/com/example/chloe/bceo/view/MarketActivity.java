@@ -79,7 +79,7 @@ public class MarketActivity extends AppCompatActivity {
                 grid = (View)convertView;
             }
 
-            ImageView imageView = (ImageView)grid.findViewById(R.id.imagepart);
+            ImageView imageView = (ImageView) grid.findViewById(R.id.imagepart);
             TextView textView = (TextView)grid.findViewById(R.id.textpart);
             imageView.setImageResource(mThumbIds[position]);
             textView.setText(String.valueOf(position));

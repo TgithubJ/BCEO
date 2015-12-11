@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.fragment.FragmentBottomMenu;
+import com.example.chloe.bceo.model.User;
 
 import java.io.File;
 
@@ -24,11 +27,18 @@ public class MypageActivity extends AppCompatActivity {
     private Bitmap decodedImage;
     //private static final String OUTPUT_FILE= "/sdcard/recordoutput.3gpp";
     private static final String OUTPUT_FILE= Environment.getExternalStorageDirectory().getPath() + "/recordoutput.3gpp";
+    private User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
+
+        //Get user
+        user = FragmentBottomMenu.getUser();
+        Log.d("[Mypage]", "User " + user.getGroupID() + " received!");
+
         button = (ImageButton) this.findViewById(R.id.imageButton);
         ImageButton startBtn = (ImageButton) findViewById(R.id.imageButton2);
         ImageButton endBtn = (ImageButton) findViewById(R.id.imageButton5);

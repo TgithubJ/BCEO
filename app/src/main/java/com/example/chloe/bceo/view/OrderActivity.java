@@ -23,7 +23,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class OrderActivity extends AppCompatActivity {
-    ArrayList<Product> BuyList = new ArrayList<Product>();
+    ArrayList<Product> buyList = new ArrayList<Product>();
+    ArrayList<Product> sellList = new ArrayList<Product>();
 
     private String[] buyArray;
     private String[] sellerArray = {"Title: Cookie \n Price: $10 \n Buyer: Woojoo",
@@ -37,37 +38,39 @@ public class OrderActivity extends AppCompatActivity {
 
         user = (User) getIntent().getSerializableExtra("user");
 
-        //Get json
-
-        //How to Query?
+        // get buyList
         HTTPGet httpGet = new HTTPGet();
-
-        String urlStr = httpGet.buildURL("/my_product?user_id=" + user.getUserID());
+        String urlStr = httpGet.buildURL("/my_buy_product?user_id=" + user.getUserID());
         String jsonString = httpGet.getResponse(urlStr);
         Log.d("[Browse Page] -> URL: ", urlStr);
         Log.d("[Browse Page] -> Json: ", jsonString);
+        jsonParser(jsonString, buyList);
+        buyArray = listToArray(buyList);
 
-        //Parse json and get products
-        jsonParser(jsonString);
-
-        buyArray = listToArray(BuyList);
+        // get sellList
+        urlStr = httpGet.buildURL("/my_sell_product?user_id=" + user.getUserID());
+        jsonString = httpGet.getResponse(urlStr);
+        Log.d("[Browse Page] -> URL: ", urlStr);
+        Log.d("[Browse Page] -> Json: ", jsonString);
+        jsonParser(jsonString, sellList);
+        buyArray = listToArray(sellList);
 
         ArrayAdapter adapterBuy = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, buyArray);
         ListView buyListView = (ListView) findViewById(R.id.listView2);
         buyListView.setAdapter(adapterBuy);
-        buyListView.setOnItemClickListener(new ItemClickListener(OrderActivity.this));
+        buyListView.setOnItemClickListener(new ItemClickListener1(OrderActivity.this));
 
         ArrayAdapter adapterSell = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, sellerArray);
         ListView sellListView = (ListView) findViewById(R.id.listView3);
         sellListView.setAdapter(adapterSell);
-        sellListView.setOnItemClickListener(new ItemClickListener(OrderActivity.this));
+        sellListView.setOnItemClickListener(new ItemClickListener2(OrderActivity.this));
 
     }
 
-    public class ItemClickListener implements AdapterView.OnItemClickListener {
+    public class ItemClickListener1 implements AdapterView.OnItemClickListener {
         Context c;
 
-        public ItemClickListener(Context c){
+        public ItemClickListener1(Context c){
             this.c = c;
         }
 
@@ -78,13 +81,31 @@ public class OrderActivity extends AppCompatActivity {
 
             //Start product activity
             Intent intent = new Intent(view.getContext(), ProductActivity.class);
-            intent.putExtra("prod", BuyList.get(position));
+            intent.putExtra("prod", buyList.get(position));
             startActivityForResult(intent, 0);
-
         }
     }
 
-    public void jsonParser(String jsonStr){
+    public class ItemClickListener2 implements AdapterView.OnItemClickListener {
+        Context c;
+
+        public ItemClickListener2(Context c){
+            this.c = c;
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            //Dialog: show which item clicked
+            Toast.makeText(c, "Postion: "+ position + "\nID: " + id, Toast.LENGTH_SHORT).show();
+
+            //Start product activity
+            Intent intent = new Intent(view.getContext(), ProductActivity.class);
+            intent.putExtra("prod", sellList.get(position));
+            startActivityForResult(intent, 0);
+        }
+    }
+
+    public void jsonParser(String jsonStr, ArrayList<Product> pList){
         String json = "{'abridged_cast':" + jsonStr + "}";
         Log.d("[jsonParser]: ", json);
 
@@ -98,7 +119,6 @@ public class OrderActivity extends AppCompatActivity {
 
                 JSONObject p = products.getJSONObject(i);
                 String category = p.getString("category");
-
                 int id = Integer.parseInt(p.getString("id"));
                 String name = p.getString("name");
                 float price = Float.parseFloat(p.getString("price"));
@@ -107,12 +127,10 @@ public class OrderActivity extends AppCompatActivity {
                 int image_id = Integer.parseInt(p.getString("image_id"));
                 int group_id = Integer.parseInt(p.getString("group_id"));
 
-
                 Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category);
-                BuyList.add(prod_tmp);
+                pList.add(prod_tmp);
 
                 Log.d("[Product] ", prod_tmp.toString());
-
             }
             Toast.makeText(this, "Json: " + temp, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
