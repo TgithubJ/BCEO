@@ -223,16 +223,16 @@ public class BrowseActivity extends AppCompatActivity {
 //                if (category.equals("electronics")) {
 ////                if (filter_category.equals("ALL") || category.equals(filter_category)) {
 
-                    int id = Integer.parseInt(p.getString("id"));
-                    String name = p.getString("name");
-                    float price = Float.parseFloat(p.getString("price"));
-                    String description = p.getString("description");
-                    int waitlist = Integer.parseInt(p.getString("waitlist"));
-                    int image_id = Integer.parseInt(p.getString("image_id"));
-                    int group_id = Integer.parseInt(p.getString("group_id"));
+                int id = Integer.parseInt(p.getString("id"));
+                String name = p.getString("name");
+                float price = Float.parseFloat(p.getString("price"));
+                String description = p.getString("description");
+                int waitlist = Integer.parseInt(p.getString("waitlist"));
+                int image_id = Integer.parseInt(p.getString("image_id"));
+                int group_id = Integer.parseInt(p.getString("group_id"));
+                String status = p.getString("status");
 
-
-                    Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category);
+                Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
                 Log.d("[Product] ", prod_tmp.toString());
                     productAdapter.addProduct(prod_tmp);
 

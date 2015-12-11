@@ -42,18 +42,18 @@ public class OrderActivity extends AppCompatActivity {
         HTTPGet httpGet = new HTTPGet();
         String urlStr = httpGet.buildURL("/my_buy_product?user_id=" + user.getUserID());
         String jsonString = httpGet.getResponse(urlStr);
-        Log.d("[Browse Page] -> URL: ", urlStr);
-        Log.d("[Browse Page] -> Json: ", jsonString);
+        Log.d("[Browse Page] -> URL ", urlStr);
+        Log.d("[Browse Page] -> Json ", jsonString);
         jsonParser(jsonString, buyList);
         buyArray = listToArray(buyList);
 
         // get sellList
         urlStr = httpGet.buildURL("/my_sell_product?user_id=" + user.getUserID());
         jsonString = httpGet.getResponse(urlStr);
-        Log.d("[Browse Page] -> URL: ", urlStr);
-        Log.d("[Browse Page] -> Json: ", jsonString);
-        jsonParser(jsonString, sellList);
-        buyArray = listToArray(sellList);
+        Log.d("[Browse Page] -> URL ", urlStr);
+        Log.d("[Browse Page] -> Json ", jsonString);
+        // jsonParser(jsonString, sellList);
+        // buyArray = listToArray(sellList);
 
         ArrayAdapter adapterBuy = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, buyArray);
         ListView buyListView = (ListView) findViewById(R.id.listView2);
@@ -126,8 +126,9 @@ public class OrderActivity extends AppCompatActivity {
                 int waitlist = Integer.parseInt(p.getString("waitlist"));
                 int image_id = Integer.parseInt(p.getString("image_id"));
                 int group_id = Integer.parseInt(p.getString("group_id"));
+                String status = p.getString("status");
 
-                Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category);
+                Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
                 pList.add(prod_tmp);
 
                 Log.d("[Product] ", prod_tmp.toString());

@@ -14,9 +14,17 @@ public class Product implements Serializable{
     private int imageId;
     private int groupId;
     private String category;
+    private String status;
 
+    public String getStatus() {
+        return status;
+    }
 
-    public Product(int pID, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category){
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Product(int pID, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category, String status){
         setpID(pID);
         setpName(pName);
         setpPrice(pPrice);
@@ -25,6 +33,7 @@ public class Product implements Serializable{
         setImageId(imageId);
         setGroupId(groupId);
         setCategory(category);
+        setStatus(status);
     }
 
 
