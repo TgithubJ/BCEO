@@ -21,14 +21,16 @@
         android:id="@+id/spinnerCategory"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/editSearch"
-        android:entries="@array/filter"/>
+        android:entries="@array/filter"
+        android:layout_centerVertical="true" />
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Filter"
         android:id="@+id/button_filter"
-        android:layout_alignBottom="@+id/editSearch"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentTop="true"
+        android:layout_gravity="right"
+        android:layout_toEndOf="@+id/spinnerCategory" />
 
 </RelativeLayout>
