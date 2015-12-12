@@ -43,6 +43,7 @@ public class ProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product);
 
         user = (User) getIntent().getSerializableExtra("user");
+        Log.d("[ProductPage]", "User " + user.getUserID() + " received!");
         prod = (Product) getIntent().getSerializableExtra("prod");
         visibility = (boolean) getIntent().getBooleanExtra("visibility", true);
 
@@ -80,6 +81,9 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), MarketActivity.class);
+                myIntent.putExtra("user", user);
+                myIntent.putExtra("pro_id", Integer.toString(prod.getpID()));
+                Log.d("[Product] ID: ", Integer.toString(prod.getpID()));
                 startActivity(myIntent);
             }
         });
