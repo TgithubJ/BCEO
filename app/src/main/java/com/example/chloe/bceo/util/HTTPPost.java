@@ -51,16 +51,8 @@ public class HTTPPost {
         //Convert java object to json with external library "gson"
         json = new GsonBuilder().create().toJson(comment, Map.class);
 
-        Log.d("[jsonImage]", json);
-
-//        Connection connect = new Connection("http://52.34.169.54:3000/images", json);
-//        connect.execute();
-
         setURL("http://52.34.169.54:3000/images");
         new Connection().execute();
-
-        //Make a HTTP request
-//        HttpResponse resHTTP = makeRequest("http://52.34.169.54:3000/images", json);
     }
 
     public void uploadProduct(int user_id, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category) {
@@ -83,18 +75,10 @@ public class HTTPPost {
         setURL("http://52.34.169.54:3000/products");
         new Connection().execute();
 
-        //Make a HTTP request
-//        HttpResponse resHTTP = makeRequest("http://52.34.169.54:3000/images", json);
     }
 
     public Bitmap executeImageDownload(String productID) throws IOException{
         Bitmap bm = null;
-//        Map<String, String> comment = new HashMap<String, String>();
-
-//        comment.put("product_id", productID);
-
-//        //Convert java object to json with external library "gson"
-//        String json = new GsonBuilder().create().toJson(comment, Map.class);
 
         //Make a HTTP request
         HttpResponse resHTTP = makeRequest("http://52.34.169.54:3000/images?id=15");
@@ -102,16 +86,7 @@ public class HTTPPost {
         if (resHTTP.getStatusLine().getStatusCode() == 200) {
             // Get Result string from HTTP entity
             String jsonResult = EntityUtils.toString(resHTTP.getEntity());
-            Log.d("[HttpPost Decode]", "jsonResult");
-
-            //Convert json to map
-//            Gson gson = new Gson();
-//            Map<String, String> resBitmap = gson.fromJson(jsonResult, new TypeToken<Map<String, String>>(){}.getType());
-
-            // Decode string back to bitmap and return
-//            bm = Image64Base.decodeBase64(resBitmap.get("image64str"));
             bm = Image64Base.decodeBase64(jsonResult);
-
         } else {
             Log.e("httpPost", "Post Request failed!");
         }
@@ -120,42 +95,26 @@ public class HTTPPost {
     }
 
     private class Connection extends AsyncTask {
-
         @Override
         protected Object doInBackground(Object... arg0) {
-//            makeRequest(url, json);
             HttpResponse httpResponse = makeRequest(url);
-            Log.d("[HTTPPost]", httpResponse.toString());
-
             try {
                 String imageID = EntityUtils.toString(httpResponse.getEntity());
                 image_ID = Integer.parseInt(imageID);
-                Log.d("[HTTPost]", imageID);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
             return null;
         }
     }
 
     public HttpResponse makeRequest(String uri) {
         try {
-//            HttpParams params = new BasicHttpParams();
-//            params.setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
-//            HttpClient httpClient = new DefaultHttpClient(params);
-
             HttpPost httpPost = new HttpPost(uri);
             httpPost.setEntity(new StringEntity(json));
             httpPost.setHeader("Accept", "application/json");
             httpPost.setHeader("Content-type", "application/json");
 
-
-//            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-//            nameValuePairs.add(new BasicNameValuePair("image", "testingforhttppost"));
-//            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf-8"));
-
-//            return httpClient.execute(httpPost);
             return new DefaultHttpClient().execute(httpPost);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
