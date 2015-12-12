@@ -63,8 +63,6 @@ public class ProductActivity extends AppCompatActivity {
 
         setProductInfo(prod);
 
-
-
         HTTPGet httpGet = new HTTPGet();
         String urlStr = httpGet.buildURL("seller_info?product_id=" + prod.getpID());
         String response = httpGet.getResponse(urlStr);

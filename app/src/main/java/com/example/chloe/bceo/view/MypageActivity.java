@@ -2,6 +2,7 @@ package com.example.chloe.bceo.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -23,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chloe.bceo.DBLayout.DatabaseConnector;
+import com.example.chloe.bceo.DBLayout.Read;
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.fragment.FragmentBottomMenu;
 import com.example.chloe.bceo.model.Product;
@@ -42,9 +45,12 @@ public class MypageActivity extends AppCompatActivity {
     private MediaRecorder recorder;
     private MediaPlayer mediaPlayer;
     private Bitmap decodedImage;
+    private DatabaseConnector databaseConnector;
+
     private TextView UserIDText;
     private TextView GroupNameText;
     private TextView PhoneText;
+
     //private static final String OUTPUT_FILE= "/sdcard/recordoutput.3gpp";
     private static final String OUTPUT_FILE = Environment.getExternalStorageDirectory().getPath() + "/recordoutput.3gpp";
     private User user;
@@ -55,7 +61,7 @@ public class MypageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
-
+        databaseConnector = new DatabaseConnector(this);
         user = (User) getIntent().getSerializableExtra("user");
 
         my_prodlist = new ArrayList<Product>();
@@ -187,16 +193,24 @@ public class MypageActivity extends AppCompatActivity {
             TextView tv_Price = (TextView)grid.findViewById(R.id.text_price);
 
             Product prod_tmp = my_prodlist.get(position);
+            int image_id = prod_tmp.getImageId();
 
-            String image_id = Integer.toString(prod_tmp.getImageId());
-
-            HTTPGet httpGet = new HTTPGet();
-            String urlStr = httpGet.buildURL("images?id=" + image_id);
-            String response = httpGet.getResponse(urlStr);
-            Log.d("[HTTPGet]", urlStr);
+            Read databaseReader = new Read();
+            Cursor cursor = databaseReader.getOneImage(image_id, databaseConnector);
+            cursor.moveToFirst();
+            String response = cursor.getString(1);
             Log.d("[HTTPGet]", response);
-
             Bitmap bm = Image64Base.decodeBase64(response);
+
+
+
+//            HTTPGet httpGet = new HTTPGet();
+//            String urlStr = httpGet.buildURL("images?id=" + image_id);
+//            String response = httpGet.getResponse(urlStr);
+//            Log.d("[HTTPGet]", urlStr);
+//            Log.d("[HTTPGet]", response);
+//
+//            Bitmap bm = Image64Base.decodeBase64(response);
 
             //ImageView
             imageView.setImageBitmap(bm);

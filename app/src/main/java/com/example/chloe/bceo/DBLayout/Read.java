@@ -27,13 +27,28 @@ public class Read {
     public Cursor getOneProduct(int productID, DatabaseConnector databaseConnector) {
         databaseConnector.open();
         return databaseConnector.getDatabase().query(
-                "Product2", null, "pID=" + productID, null, null, null, null);
+                "Product", null, "pID=" + productID, null, null, null, null);
     } // end method getOnContact
     // return a Cursor with all contact information in the database
 
     public Cursor getAllProduct(DatabaseConnector databaseConnector) {
         databaseConnector.open();
-        return databaseConnector.getDatabase().query("Product2", null,
+        return databaseConnector.getDatabase().query("Product", null,
+                null, null, null, null, null);
+    } // end method getAllContacts
+
+    // get a Cursor containing all information about the contact specified
+    // by the given id
+    public Cursor getOneImage(int imageID, DatabaseConnector databaseConnector) {
+        databaseConnector.open();
+        return databaseConnector.getDatabase().query(
+                "Image", null, "imageID=" + imageID, null, null, null, null);
+    } // end method getOnContact
+    // return a Cursor with all contact information in the database
+
+    public Cursor getAllImage(DatabaseConnector databaseConnector) {
+        databaseConnector.open();
+        return databaseConnector.getDatabase().query("Image", null,
                 null, null, null, null, null);
     } // end method getAllContacts
 }
