@@ -63,7 +63,7 @@ public class HTTPPost {
 //        HttpResponse resHTTP = makeRequest("http://52.34.169.54:3000/images", json);
     }
 
-    public void uploadProduct(int user_id, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category) {
+    public void uploadProduct(int user_id, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category, String status) {
         Map<String, String> comment = new HashMap<String, String>();
 
         comment.put("user_id", Integer.toString(user_id));
@@ -74,6 +74,7 @@ public class HTTPPost {
         comment.put("image_id", Integer.toString(imageId));
         comment.put("group_id", Integer.toString(groupId));
         comment.put("category", category);
+        comment.put("status", status);
 
         //Convert java object to json with external library "gson"
         json = new GsonBuilder().create().toJson(comment, Map.class);
