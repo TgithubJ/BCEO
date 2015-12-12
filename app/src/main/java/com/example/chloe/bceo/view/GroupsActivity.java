@@ -60,6 +60,8 @@ public class GroupsActivity extends AppCompatActivity {
         // group_id = 0 is the default when signing up, so 0 = no group
         if (user.getGroupID() == 0) {
             no_group_text.setText("No joined group yet!");
+            groupImageButton_1.setVisibility(View.INVISIBLE);
+            leaveGroupButton.setVisibility(View.INVISIBLE);
         } else {
             String urlStr = httpUtil.buildURL("group_logo?id=" + user.getGroupID());
             String response = httpUtil.getResponse(urlStr);
