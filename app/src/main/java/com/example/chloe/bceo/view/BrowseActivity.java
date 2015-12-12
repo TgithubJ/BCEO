@@ -47,22 +47,8 @@ public class BrowseActivity extends AppCompatActivity {
 
     Spinner category;
     Button button_filter;
-    String filter_category = "all";
     private User user;
     private boolean fromGroupPage;
-
-    // references to our images
-//    private Integer[] mThumbIds = {
-//            R.drawable.androider_01,
-//            R.drawable.androider_02,
-//            R.drawable.androider_03,
-//            R.drawable.androider_04,
-//            R.drawable.androider_05,
-//            R.drawable.androider_06,
-//            R.drawable.androider_07,
-//            R.drawable.androider_08,
-//            R.drawable.androider_09,
-//    };
 
     public class MyAdapter extends BaseAdapter {
 
@@ -134,7 +120,6 @@ public class BrowseActivity extends AppCompatActivity {
 
             return grid;
         }
-
     }
 
     /** Called when the activity is first created. */
@@ -150,7 +135,7 @@ public class BrowseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
-        final GridView gridview = (GridView) findViewById(R.id.gridview);
+        final GridView gridview = (GridView) findViewById(R.id.gridview_market);
         gridview.setAdapter(new MyAdapter(this));
         gridview.setOnItemClickListener(new ItemClickListener(BrowseActivity.this));
 
@@ -218,7 +203,6 @@ public class BrowseActivity extends AppCompatActivity {
             intent.putExtra("user", user);
             intent.putExtra("prod", productList.get(position));
             startActivityForResult(intent, 0);
-
         }
     }
 
@@ -249,35 +233,12 @@ public class BrowseActivity extends AppCompatActivity {
                 Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
                 Log.d("[Product] ", prod_tmp.toString());
                 productAdapter.addProduct(prod_tmp);
-
             }
             Toast.makeText(this, "Json: "+temp, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-//        String json="{'abridged_cast':[{'name':'JeffBridges','id':'162655890','characters':['JackPrescott']},{'name':'CharlesGrodin','id':'162662571','characters':['FredWilson']},{'name':'JessicaLange','id':'162653068','characters':['Dwan']},{'name':'JohnRandolph','id':'162691889','characters':['Capt.Ross']},{'name':'ReneAuberjonois','id':'162718328','characters':['Bagley']}]}";
-//        Log.d("[Browse Page]->JsonTest: ", json);
-//
-//        JSONObject jsonResponse;
-//        try {
-//            ArrayList<String> temp = new ArrayList<String>();
-//            jsonResponse = new JSONObject(json);
-//            JSONArray movies = jsonResponse.getJSONArray("abridged_cast");
-//            for(int i=0;i<movies.length();i++){
-//                JSONObject movie = movies.getJSONObject(i);
-//                JSONArray characters = movie.getJSONArray("characters");
-//                for(int j=0;j<characters.length();j++){
-//                    temp.add(characters.getString(j));
-//                    Log.d("[Browse Page]->cha: ", characters.getString(j));
-//                }
-//            }
-//            Toast.makeText(this, "Json: "+temp, Toast.LENGTH_LONG).show();
-//        } catch (JSONException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
     }
 
     public void jsonParser2(String jsonStr){

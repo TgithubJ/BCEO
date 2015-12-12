@@ -67,7 +67,7 @@ public class MypageActivity extends AppCompatActivity {
 
         //Get user
         user = FragmentBottomMenu.getUser();
-        Log.d("[Mypage]", "User " + user.getGroupID() + " received!");
+        Log.d("[Mypage]", "User " + user.getUserID() + " received!");
 
         final GridView gridview = (GridView) findViewById(R.id.gridview_mypage);
         gridview.setAdapter(new gridAdapter(this));
