@@ -3,9 +3,9 @@ package com.example.chloe.bceo.exception;
 /**
  * Created by chloeshim on 12/11/15.
  */
-public class FloatNumberException extends Exception{
+public class ImageNotLoadedException extends Exception{
 
-    public FloatNumberException(String message){
+    public ImageNotLoadedException(String message){
         super(message);
     }
 

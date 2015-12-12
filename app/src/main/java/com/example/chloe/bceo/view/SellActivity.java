@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chloe.bceo.R;
+import com.example.chloe.bceo.exception.ImageNotLoadedException;
 import com.example.chloe.bceo.fragment.FragmentBottomMenu;
 import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.model.User;
@@ -161,23 +162,13 @@ public class SellActivity extends AppCompatActivity {
 //                        image_preview.setImageResource(R.drawable.androider_03);
 
                         if (cmd.equals("upload")){
-                            BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
-                            int image_id = saveImageOnServerSide(bd.getBitmap());
-
-                            String p_name = et_name.getText().toString();
-
-                            float p_price = Float.parseFloat(et_price.getText().toString());
-
-                            String p_description = et_description.getText().toString();
-
-                            String p_category = spinner_category.getSelectedItem().toString();
-
-                            String p_status = spinner_status.getSelectedItem().toString();
-
-                            //Upload product details
-                            int product_id = uploadProductOnServerSide(user.getUserID(), p_name, (float) p_price, p_description, 0, image_id, user.getGroupID(), p_category, p_status);
-
-                            Toast.makeText(SellActivity.this, "Upload Product Successfully!", Toast.LENGTH_LONG).show();
+                            try {
+                                retrieveDataAndUpload();
+                            } catch (ImageNotLoadedException e) {
+                                Toast.makeText(SellActivity.this, "Image not loaded yet. \nPlease load the picture by clicking one photo.", Toast.LENGTH_LONG).show();
+                                Log.d("[SellPage]", "Image not loaded yet!");
+                                return;
+                            }
                         }else{
                             //Read the new configuration
                             Log.d("[SellPage]", "Begin Configuring");
@@ -212,6 +203,32 @@ public class SellActivity extends AppCompatActivity {
         );
 
 
+    }
+
+    private void retrieveDataAndUpload() throws ImageNotLoadedException{
+
+        if (image_preview.getDrawable() == null){
+            ImageNotLoadedException imageException = new ImageNotLoadedException("This is a custom exception");
+            throw imageException;
+        }
+
+        BitmapDrawable bd = (BitmapDrawable) image_preview.getDrawable();
+        int image_id = saveImageOnServerSide(bd.getBitmap());
+
+        String p_name = et_name.getText().toString();
+
+        float p_price = Float.parseFloat(et_price.getText().toString());
+
+        String p_description = et_description.getText().toString();
+
+        String p_category = spinner_category.getSelectedItem().toString();
+
+        String p_status = spinner_status.getSelectedItem().toString();
+
+        //Upload product details
+        int product_id = uploadProductOnServerSide(user.getUserID(), p_name, (float) p_price, p_description, 0, image_id, user.getGroupID(), p_category, p_status);
+
+        Toast.makeText(SellActivity.this, "Upload Product Successfully!", Toast.LENGTH_LONG).show();
     }
 
     private void configureProduct() {
