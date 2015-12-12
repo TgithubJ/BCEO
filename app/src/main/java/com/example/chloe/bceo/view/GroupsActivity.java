@@ -1,5 +1,7 @@
 package com.example.chloe.bceo.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import org.json.JSONObject;
 
 public class GroupsActivity extends AppCompatActivity {
     private ImageButton groupImageButton_1;
+    private ImageButton leaveGroupButton;
 
     private Spinner all_groups;
     private Button join;
@@ -45,6 +48,7 @@ public class GroupsActivity extends AppCompatActivity {
         user = (User) getIntent().getSerializableExtra("user");
 
         groupImageButton_1 = (ImageButton) findViewById(R.id.groupImageButton1);
+        leaveGroupButton = (ImageButton) findViewById(R.id.leaveButton);
 
         no_group_text = (TextView) findViewById(R.id.noGroupTextView);
         all_groups = (Spinner) findViewById(R.id.group_spinner);
@@ -61,12 +65,20 @@ public class GroupsActivity extends AppCompatActivity {
             String response = httpUtil.getResponse(urlStr);
 
             groupImageButton_1.setImageBitmap(imageUtil.decodeBase64(response));
+            leaveGroupButton.setImageResource(R.drawable.leave);
         }
 
         groupImageButton_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 browse();
+            }
+        });
+
+        leaveGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                leave();
             }
         });
 
@@ -110,6 +122,37 @@ public class GroupsActivity extends AppCompatActivity {
         //passing logged in user
         intent.putExtra("user", user);
         this.startActivity(intent);
+    }
+
+    private void leave() {
+        // aler dialog for user to confirm leaving the group
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        StringBuilder str = new StringBuilder("Are you sure you want to leave? \n");
+        alertDialogBuilder.setMessage(str);
+
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+
+                StringBuilder tail =
+                        new StringBuilder(
+                                "leave_group?user_email=" + user.getUserEmail());
+                String urlStr = httpUtil.buildURL(tail.toString());
+                String response = httpUtil.getResponse(urlStr);
+
+                if (!response.equals("left")) {
+                    Toast.makeText(GroupsActivity.this,
+                            "Oops! unable to leave group, try again!",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                refresh();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     private void joinGroup() {
