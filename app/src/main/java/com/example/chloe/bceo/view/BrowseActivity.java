@@ -2,6 +2,7 @@ package com.example.chloe.bceo.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chloe.bceo.Adapter.ProductAdapter;
+import com.example.chloe.bceo.DBLayout.Create;
+import com.example.chloe.bceo.DBLayout.DatabaseConnector;
+import com.example.chloe.bceo.DBLayout.Read;
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.fragment.FragmentBottomMenu;
 import com.example.chloe.bceo.model.Product;
@@ -39,7 +43,7 @@ public class BrowseActivity extends AppCompatActivity {
 //    ArrayList<Product> productList = new ArrayList<Product>();
     ArrayList<Product> gridProdList = new ArrayList<Product>();
     ProductAdapter productAdapter;
-
+    DatabaseConnector databaseConnector;
 
     Spinner category;
     Button button_filter;
@@ -105,13 +109,17 @@ public class BrowseActivity extends AppCompatActivity {
             TextView tv_Price = (TextView)grid.findViewById(R.id.text_price);
 
             Product prod_tmp = gridProdList.get(position);
+            int image_id = prod_tmp.getImageId();
+//            String image_id = Integer.toString(prod_tmp.getImageId());
+//            HTTPGet httpGet = new HTTPGet();
+//            String urlStr = httpGet.buildURL("images?id=" + image_id);
+//            String response = httpGet.getResponse(urlStr);
+//            Log.d("[HTTPGet]", urlStr);
+            Read databaseReader = new Read();
+            Cursor cursor = databaseReader.getOneImage(image_id, databaseConnector);
+            cursor.moveToFirst();
+            String response = cursor.getString(1);
 
-            String image_id = Integer.toString(prod_tmp.getImageId());
-
-            HTTPGet httpGet = new HTTPGet();
-            String urlStr = httpGet.buildURL("images?id=" + image_id);
-            String response = httpGet.getResponse(urlStr);
-            Log.d("[HTTPGet]", urlStr);
             Log.d("[HTTPGet]", response);
 
             Bitmap bm = Image64Base.decodeBase64(response);
@@ -131,10 +139,10 @@ public class BrowseActivity extends AppCompatActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        databaseConnector = new DatabaseConnector(this);
         user = (User) getIntent().getSerializableExtra("user");
-
         FragmentBottomMenu.setUser(user);
-
         productAdapter = new ProductAdapter();
         productList = productAdapter.getProductList();
 
@@ -151,9 +159,15 @@ public class BrowseActivity extends AppCompatActivity {
         String jsonString = httpGet.getResponse(urlStr);
         Log.d("[Browse Page] -> URL: ", urlStr);
         Log.d("[Browse Page] -> Json: ", jsonString);
-
         //Parse json and get products
         jsonParser(jsonString);
+
+        //Get json
+        urlStr = httpGet.buildURL("all_images");
+        jsonString = httpGet.getResponse(urlStr);
+        Log.d("[Browse Page] -> URL: ", urlStr);
+        Log.d("[Browse Page] -> Json: ", jsonString);
+        jsonParser2(jsonString);
 
         updateGridProduct("all");
 
@@ -170,8 +184,6 @@ public class BrowseActivity extends AppCompatActivity {
                         gridview.invalidateViews();
                     }
                 });
-
-
     }
 
     private void updateGridProduct(String text) {
@@ -205,11 +217,12 @@ public class BrowseActivity extends AppCompatActivity {
         }
     }
 
-    void jsonParser(String jsonStr){
+    public void jsonParser(String jsonStr){
         String json = "{'abridged_cast':" + jsonStr + "}";
         Log.d("[jsonParser]: ", json);
 
         JSONObject jsonResponse;
+
         try {
             ArrayList<String> temp = new ArrayList<String>();
             jsonResponse = new JSONObject(json);
@@ -219,10 +232,6 @@ public class BrowseActivity extends AppCompatActivity {
 
                 JSONObject p = products.getJSONObject(i);
                 String category = p.getString("category");
-
-//                if (category.equals("electronics")) {
-////                if (filter_category.equals("ALL") || category.equals(filter_category)) {
-
                 int id = Integer.parseInt(p.getString("id"));
                 String name = p.getString("name");
                 float price = Float.parseFloat(p.getString("price"));
@@ -234,11 +243,8 @@ public class BrowseActivity extends AppCompatActivity {
 
                 Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
                 Log.d("[Product] ", prod_tmp.toString());
-                    productAdapter.addProduct(prod_tmp);
+                productAdapter.addProduct(prod_tmp);
 
-//                    Log.d("[Product] ", prod_tmp.toString());
-
-//                }
             }
             Toast.makeText(this, "Json: "+temp, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
@@ -267,6 +273,29 @@ public class BrowseActivity extends AppCompatActivity {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
+    }
+
+    public void jsonParser2(String jsonStr){
+        String json = "{'abridged_cast':" + jsonStr + "}";
+        Log.d("[jsonParser]: ", json);
+        JSONObject jsonResponse;
+        Create databaseCreator = new Create();
+        try {
+            ArrayList<String> temp = new ArrayList<String>();
+            jsonResponse = new JSONObject(json);
+            JSONArray images = jsonResponse.getJSONArray("abridged_cast");
+
+            for(int i = 0; i < images.length(); i++){
+                JSONObject p = images.getJSONObject(i);
+                int pID = p.getInt("id");
+                String content = p.getString("content");
+                databaseCreator.createImage(pID, content, databaseConnector);
+            }
+            Toast.makeText(this, "Json: "+temp, Toast.LENGTH_LONG).show();
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
 
