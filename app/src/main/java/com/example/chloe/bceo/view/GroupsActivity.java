@@ -144,14 +144,15 @@ public class GroupsActivity extends AppCompatActivity {
                 String urlStr = httpUtil.buildURL(tail.toString());
                 String response = httpUtil.getResponse(urlStr);
 
-                if (!response.equals("left")) {
-                    Toast.makeText(GroupsActivity.this,
-                            "Oops! unable to leave group, try again!",
-                            Toast.LENGTH_LONG).show();
-                    return;
-                } else if (response.equals("invalid")) {
+
+                if (response.equals("invalid")) {
                     Toast.makeText(GroupsActivity.this,
                             "You don't belong this group, reload and try again!",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                } else if (!response.equals("left")) {
+                    Toast.makeText(GroupsActivity.this,
+                            "Oops! unable to leave group, try again!",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
