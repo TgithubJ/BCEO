@@ -1,6 +1,5 @@
 package com.example.chloe.bceo.view;
 
-import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -120,47 +119,17 @@ public class SellActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                //開啟相簿相片集，須由startActivityForResult且帶入requestCode進行呼叫，原因
-//                為點選相片後返回程式呼叫onActivityResult
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, PHOTO);
             }
         });
-//
-//        StrictMode.ThreadPolicy policy =
-//                new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
 
         //Product
         buttonComfirm.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        //Save to local db
-//                        DatabaseConnector databaseConnector = new DatabaseConnector(this);
-//                        Create databaseCreator = new Create();
-//                        User testUser = new User();
-//                        testUser.setUserID("tj@gmail.com");
-//                        testUser.setGroupID("taejin@andrew.cmu.edu");
-//                        testUser.setPhoneNum("213-905-0929");
-//                        testUser.setPriority(1);
-//                        testUser.setUserName("Taejin Chun");
-//                        Product testProduct = new Product();
-//                        testProduct.setpDescription("This is a test item.");
-//                        testProduct.setpName("testItem");
-//                        testProduct.setpPrice(23);
-//                        testProduct.setpID(1);
-//                        testProduct.setpWaiting(2);
-//                        Bitmap imagefile = BitmapFactory.decodeResource(this.getResources(), R.drawable.androider_01);
-//                        testProduct.setpImage(encodeTobase64(imagefile));
-//                        //Drawable testP = testPicture.getDrawable();
-//                        databaseCreator.createProduct(testUser, testProduct, databaseConnector);
-
-
-//                        //To save bitmap to server
-//                        image_preview.setImageResource(R.drawable.androider_03);
-
                         if (cmd.equals("upload")){
                             try {
                                 retrieveDataAndUpload();
@@ -179,20 +148,6 @@ public class SellActivity extends AppCompatActivity {
 
                             Toast.makeText(SellActivity.this, "Update Product Successfully!", Toast.LENGTH_LONG).show();
                         }
-//                        //Get image from server
-//                        HTTPGet httpGet = new HTTPGet();
-//                        String urlStr = httpGet.buildURL("images?id=15");
-//                        String response = httpGet.getResponse(urlStr);
-//                        Log.d("[HTTPGet]", urlStr);
-//                        Log.d("[HTTPGet]", response);
-
-//                        httpGet.getResponseBackground();
-//                        image_preview.setImageBitmap(httpGet.bm);
-
-                        //Set imageView
-//                        Bitmap bm = Image64Base.decodeBase64(response);
-//                        image_preview.setImageBitmap(bm);
-
                         //Start new activity
                         Intent intent = new Intent(v.getContext(), MypageActivity.class);
                         intent.putExtra("user", user);
@@ -429,10 +384,7 @@ public class SellActivity extends AppCompatActivity {
         while(post.getImage_ID() == 0){}
 
         return post.getImage_ID();
-
-//        Toast.makeText(SellActivity.this, str64Base, Toast.LENGTH_LONG).show();
-    }
-
+  }
 
     class imScrollListener implements View.OnClickListener{
         int pos;

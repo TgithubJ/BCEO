@@ -96,11 +96,11 @@ public class OrderActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //Dialog: show which item clicked
-            Toast.makeText(c, "Postion: "+ position + "\nID: " + id, Toast.LENGTH_SHORT).show();
 
             //Start product activity
             Intent intent = new Intent(view.getContext(), SellActivity.class);
+            intent.putExtra("user", user);
+            intent.putExtra("cmd", "update");
             intent.putExtra("prod", sellList.get(position));
             startActivityForResult(intent, 0);
         }

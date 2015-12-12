@@ -15,11 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +30,6 @@ public class LoginActivity extends AppCompatActivity  {
     private EditText mPasswordView;
     private Button signup;
     private Button mEmailSignInButton;
-
     private HTTPGet httpUtil;
 
     @Override

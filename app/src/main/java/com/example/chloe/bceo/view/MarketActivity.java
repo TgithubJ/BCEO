@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -186,9 +185,6 @@ public class MarketActivity extends AppCompatActivity {
                 JSONObject p = products.getJSONObject(i);
                 String category = p.getString("category");
 
-//                if (category.equals("electronics")) {
-////                if (filter_category.equals("ALL") || category.equals(filter_category)) {
-
                 int id = Integer.parseInt(p.getString("id"));
                 String name = p.getString("name");
                 float price = Float.parseFloat(p.getString("price"));
@@ -198,14 +194,9 @@ public class MarketActivity extends AppCompatActivity {
                 int group_id = Integer.parseInt(p.getString("group_id"));
                 String status = p.getString("status");
 
-
                 Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
                 Log.d("[Product] ", prod_tmp.toString());
                 gridProdList.add(prod_tmp);
-
-//                    Log.d("[Product] ", prod_tmp.toString());
-
-//                }
             }
             Toast.makeText(this, "Json: "+temp, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
@@ -233,24 +224,7 @@ public class MarketActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return Integer.parseInt(seller_id);
-//        String json = "{'abridged_cast':" + jsonStr + "}";
-//        Log.d("[jsonParser-MyPage]: ", json);
-//        String user_id = "-1";
-//        JSONObject jsonResponse;
-//        try {
-//            ArrayList<String> temp = new ArrayList<String>();
-//            jsonResponse = new JSONObject(json);
-//            JSONArray products = jsonResponse.getJSONArray("abridged_cast");
-//            JSONObject p = products.getJSONObject(1);
-//            user_id = p.getString("id");
-//            Toast.makeText(this, "Json: "+ user_id, Toast.LENGTH_LONG).show();
-//        } catch (JSONException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//        return Integer.parseInt(user_id);
     }
-
 
     private String updateMyProdList(int seller_id) {
         HTTPGet httpGet = new HTTPGet();
@@ -260,7 +234,6 @@ public class MarketActivity extends AppCompatActivity {
         Log.d("[HTTPGet]", response);
         return response;
     }
-
 
     private void playRecording() throws Exception {
         killMediaPlayer();

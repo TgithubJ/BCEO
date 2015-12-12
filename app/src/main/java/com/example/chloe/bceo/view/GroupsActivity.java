@@ -14,12 +14,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.chloe.bceo.R;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

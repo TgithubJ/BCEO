@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.chloe.bceo.Adapter.ProductAdapter;
 import com.example.chloe.bceo.DBLayout.Create;
 import com.example.chloe.bceo.DBLayout.DatabaseConnector;
@@ -29,18 +28,15 @@ import com.example.chloe.bceo.model.Product;
 import com.example.chloe.bceo.model.User;
 import com.example.chloe.bceo.util.HTTPGet;
 import com.example.chloe.bceo.util.Image64Base;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 
 public class BrowseActivity extends AppCompatActivity {
 
     ArrayList<Product> productList;
-//    ArrayList<Product> productList = new ArrayList<Product>();
     ArrayList<Product> gridProdList = new ArrayList<Product>();
     ProductAdapter productAdapter;
     DatabaseConnector databaseConnector;
@@ -97,11 +93,6 @@ public class BrowseActivity extends AppCompatActivity {
 
             Product prod_tmp = gridProdList.get(position);
             int image_id = prod_tmp.getImageId();
-//            String image_id = Integer.toString(prod_tmp.getImageId());
-//            HTTPGet httpGet = new HTTPGet();
-//            String urlStr = httpGet.buildURL("images?id=" + image_id);
-//            String response = httpGet.getResponse(urlStr);
-//            Log.d("[HTTPGet]", urlStr);
             Read databaseReader = new Read();
             Cursor cursor = databaseReader.getOneImage(image_id, databaseConnector);
             cursor.moveToFirst();
@@ -234,7 +225,6 @@ public class BrowseActivity extends AppCompatActivity {
                 Log.d("[Product] ", prod_tmp.toString());
                 productAdapter.addProduct(prod_tmp);
             }
-            Toast.makeText(this, "Json: "+temp, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -46,12 +46,9 @@ public class MypageActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private Bitmap decodedImage;
     private DatabaseConnector databaseConnector;
-
     private TextView UserIDText;
-    private TextView GroupNameText;
-    private TextView PhoneText;
+    private EditText PhoneText;
 
-    //private static final String OUTPUT_FILE= "/sdcard/recordoutput.3gpp";
     private static final String OUTPUT_FILE = Environment.getExternalStorageDirectory().getPath() + "/recordoutput.3gpp";
     private User user;
 
@@ -69,8 +66,7 @@ public class MypageActivity extends AppCompatActivity {
         jsonParser(json);
 
         TextView UserIDText = (TextView) findViewById(R.id.editText4);
-        TextView GroupNameText = (TextView) findViewById(R.id.editText);
-        TextView PhoneText = (TextView) findViewById(R.id.editText2);
+        EditText PhoneText = (EditText) findViewById(R.id.editText);
 
         //Get user
         user = FragmentBottomMenu.getUser();
@@ -80,11 +76,8 @@ public class MypageActivity extends AppCompatActivity {
         gridview.setAdapter(new gridAdapter(this));
         gridview.setOnItemClickListener(new girdClickListener(MypageActivity.this));
 
-
         UserIDText.setText(user.getUserEmail());
-        GroupNameText.setText(Integer.toString(user.getGroupID()));
         PhoneText.setText(user.getPhoneNum());
-
 
         ImageButton startBtn = (ImageButton) findViewById(R.id.imageButton2);
         ImageButton endBtn = (ImageButton) findViewById(R.id.imageButton5);
@@ -202,16 +195,6 @@ public class MypageActivity extends AppCompatActivity {
             Log.d("[HTTPGet]", response);
             Bitmap bm = Image64Base.decodeBase64(response);
 
-
-
-//            HTTPGet httpGet = new HTTPGet();
-//            String urlStr = httpGet.buildURL("images?id=" + image_id);
-//            String response = httpGet.getResponse(urlStr);
-//            Log.d("[HTTPGet]", urlStr);
-//            Log.d("[HTTPGet]", response);
-//
-//            Bitmap bm = Image64Base.decodeBase64(response);
-
             //ImageView
             imageView.setImageBitmap(bm);
 
@@ -259,10 +242,6 @@ public class MypageActivity extends AppCompatActivity {
 
                 JSONObject p = products.getJSONObject(i);
                 String category = p.getString("category");
-
-//                if (category.equals("electronics")) {
-////                if (filter_category.equals("ALL") || category.equals(filter_category)) {
-
                 int id = Integer.parseInt(p.getString("id"));
                 String name = p.getString("name");
                 float price = Float.parseFloat(p.getString("price"));
@@ -276,10 +255,6 @@ public class MypageActivity extends AppCompatActivity {
                 Product prod_tmp = new Product(id, name, price, description, waitlist, image_id, group_id, category, status);
                 Log.d("[Product] ", prod_tmp.toString());
                 my_prodlist.add(prod_tmp);
-
-//                    Log.d("[Product] ", prod_tmp.toString());
-
-//                }
             }
             Toast.makeText(this, "Json: "+temp, Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
@@ -301,14 +276,6 @@ public class MypageActivity extends AppCompatActivity {
         recorder.setOutputFile(OUTPUT_FILE);
         recorder.prepare();
         recorder.start();
-/*
-        File file = new File(Environment.getExternalStorageDirectory() + "/hello-4.wav");
-        byte[] org.apache.commons.io.FileUtils.readFileToByteArray(file);
-        InputStream in = new java.io.FileInputStream(file);
-        byte[] bytes = in.toString();
-        String encoded = Base64.encodeToString(bytes, 0);
-*/
-
     }
 
     private void stopRecording() throws Exception {
@@ -358,24 +325,5 @@ public class MypageActivity extends AppCompatActivity {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
-
-//    public static String encodeTobase64(String filePath) {
-//        File dir = Environment.getExternalStorageDirectory();
-//        File file = new File(dir, filePath);
-//        byte[] bytes = new byte[0];
-//        InputStream in = null;
-//        try {
-//            bytes = Files.readAllBytes(filePath);
-//        }
-//        catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        String voiceEncoded = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
-//        return voiceEncoded;
-//    }
-
 }
 

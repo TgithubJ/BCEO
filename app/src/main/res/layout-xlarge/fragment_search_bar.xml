@@ -6,7 +6,7 @@
 
 
     <Spinner
-        android:layout_width="300dp"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerCategory"
         android:entries="@array/filter"

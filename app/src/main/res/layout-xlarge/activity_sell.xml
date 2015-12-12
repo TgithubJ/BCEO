@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <HorizontalScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/horizontalScrollView">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll1" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll2" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll3" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll4" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll5" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll6" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll7" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll8" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll9" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll10" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll11" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/imageScroll12" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:text="confirm"
+        android:layout_above="@+id/fragment4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Price: "
+        android:textSize="25sp"
+        android:id="@+id/text_product_price"
+        android:layout_below="@+id/text_product_name"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name: "
+        android:textSize="25sp"
+        android:id="@+id/text_product_name"
+        android:layout_below="@+id/image_product_preview"
+        android:layout_alignParentStart="true" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.example.chloe.bceo.fragment.FragmentBottomMenu"
+        android:id="@+id/fragment4"
+        tools:layout="@layout/fragment_bottom_menu"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/button_camera"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Camera"
+        android:layout_marginTop="33dp"
+        android:layout_below="@+id/horizontalScrollView"
+        android:layout_toStartOf="@+id/image_product_preview" />
+
+    <Button
+        android:id="@+id/button_upload"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        android:layout_alignTop="@+id/button_camera"
+        android:layout_toEndOf="@+id/image_product_preview" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/image_product_preview"
+        android:layout_below="@+id/button_upload"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="85dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText_name"
+        android:layout_alignBottom="@+id/text_product_name"
+        android:layout_toStartOf="@+id/button_upload" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_price"
+        android:ems="10"
+        android:layout_above="@+id/textView_description"
+        android:layout_alignStart="@+id/editText_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Description:"
+        android:textSize="25sp"
+        android:id="@+id/textView_description"
+        android:layout_below="@+id/text_product_price"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_description"
+        android:ems="10"
+        android:layout_alignBottom="@+id/textView_description"
+        android:layout_alignStart="@+id/editText_price" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="25sp"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView_description"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Category:"
+        android:textSize="25sp"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/textView_description"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerCategory"
+        android:entries="@array/category"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_alignStart="@+id/editText_description" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Status:"
+        android:textSize="25sp"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/spinnerCategory"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerStatus"
+        android:entries="@array/status"
+        android:layout_below="@+id/spinnerCategory"
+        android:layout_alignStart="@+id/spinnerCategory" />
+
+</RelativeLayout>

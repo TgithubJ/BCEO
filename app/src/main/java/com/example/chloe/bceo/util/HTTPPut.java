@@ -3,21 +3,15 @@ package com.example.chloe.bceo.util;
 import android.util.Log;
 
 import com.example.chloe.bceo.model.Product;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.gson.GsonBuilder;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONStringer;
-
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -72,7 +66,6 @@ public class HTTPPut {
         }
 
         HttpEntity entity1 = response.getEntity();
-
     }
 
     String convert2Json(){

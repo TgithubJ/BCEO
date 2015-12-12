@@ -16,8 +16,6 @@ public class Product implements Serializable{
     private String category;
     private String status;
 
-
-
     public Product(int pID, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category, String status){
         setpID(pID);
         setpName(pName);
