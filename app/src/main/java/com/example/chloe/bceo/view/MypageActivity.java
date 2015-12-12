@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -44,7 +45,11 @@ public class MypageActivity extends AppCompatActivity {
     private MediaRecorder recorder;
     private MediaPlayer mediaPlayer;
     private Bitmap decodedImage;
-    DatabaseConnector databaseConnector;
+    private DatabaseConnector databaseConnector;
+
+    private TextView UserIDText;
+    private TextView GroupNameText;
+    private TextView PhoneText;
 
     //private static final String OUTPUT_FILE= "/sdcard/recordoutput.3gpp";
     private static final String OUTPUT_FILE = Environment.getExternalStorageDirectory().getPath() + "/recordoutput.3gpp";
@@ -63,7 +68,9 @@ public class MypageActivity extends AppCompatActivity {
         String json = updateMyProdList();
         jsonParser(json);
 
-
+        TextView UserIDText = (TextView) findViewById(R.id.editText4);
+        TextView GroupNameText = (TextView) findViewById(R.id.editText);
+        TextView PhoneText = (TextView) findViewById(R.id.editText2);
 
         //Get user
         user = FragmentBottomMenu.getUser();
@@ -74,25 +81,15 @@ public class MypageActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new girdClickListener(MypageActivity.this));
 
 
+        UserIDText.setText(user.getUserEmail());
+        GroupNameText.setText(Integer.toString(user.getGroupID()));
+        PhoneText.setText(user.getPhoneNum());
+
+
         ImageButton startBtn = (ImageButton) findViewById(R.id.imageButton2);
         ImageButton endBtn = (ImageButton) findViewById(R.id.imageButton5);
         ImageButton playRecordingBtn = (ImageButton) findViewById(R.id.imageButton6);
         ImageButton stpPlayingRecordingBtn = (ImageButton) findViewById(R.id.imageButton7);
-
-/*        DatabaseConnector databaseConnector = new DatabaseConnector(this);
-        Read databaseReader = new Read();
-        Cursor cursor = databaseReader.getOneProduct(1, databaseConnector);
-        cursor.moveToFirst();
-        decodedImage = decodeBase64(cursor.getString(5));
-        button.setImageBitmap(decodedImage);*/
-
-//        button.setOnClickListener(
-//                new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        buttonClicked(v);
-//                    }
-//                }
-//        );
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
