@@ -1,25 +1,9 @@
 package com.example.chloe.bceo.util;
 
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ImageView;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import java.io.BufferedReader;
-import java.io.IOException;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -29,6 +13,7 @@ import java.net.URL;
 public class HTTPGet {
 
     public static String buildURL(String tail) {
+        // remote server address
         StringBuilder urlStr =
                 new StringBuilder("http://52.34.169.54:3000/");
         urlStr.append(tail);
@@ -36,6 +21,7 @@ public class HTTPGet {
         return urlStr.toString();
     }
 
+    // GET response from server
     public static String getResponse(String urlStr) {
         URL url;
         HttpURLConnection urlConnection = null;
@@ -44,12 +30,10 @@ public class HTTPGet {
         StringBuilder response = new StringBuilder();
         try {
             url = new URL(urlStr.toString());
-            Log.d("[HTTP Get]", urlStr.toString());
             urlConnection = (HttpURLConnection) url.openConnection();
 
             InputStream in = urlConnection.getInputStream();
             InputStreamReader isw = new InputStreamReader(in);
-
 
             int data = isw.read();
             while (data != -1) {
@@ -57,17 +41,15 @@ public class HTTPGet {
                 data = isw.read();
                 response.append(current);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
                 urlConnection.disconnect();
             } catch (Exception e) {
-                e.printStackTrace(); //If you want further info on failure...
+                e.printStackTrace();
             }
         }
-
         return response.toString();
     }
 

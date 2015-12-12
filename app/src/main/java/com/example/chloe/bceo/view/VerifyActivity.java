@@ -192,13 +192,6 @@ public class VerifyActivity extends Activity {
             }
         });
 
-        /*alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });*/
-
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
