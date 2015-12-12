@@ -172,8 +172,10 @@ public class SellActivity extends AppCompatActivity {
 
                             String p_category = spinner_category.getSelectedItem().toString();
 
+                            String p_status = spinner_status.getSelectedItem().toString();
+
                             //Upload product details
-                            int product_id = uploadProductOnServerSide(user.getUserID(), p_name, (float) p_price, p_description, 0, image_id, user.getGroupID(), p_category);
+                            int product_id = uploadProductOnServerSide(user.getUserID(), p_name, (float) p_price, p_description, 0, image_id, user.getGroupID(), p_category, p_status);
 
                             Toast.makeText(SellActivity.this, "Upload Product Successfully!", Toast.LENGTH_LONG).show();
                         }else{
@@ -261,9 +263,9 @@ public class SellActivity extends AppCompatActivity {
 
     }
 
-    public int uploadProductOnServerSide(int user_id, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category) {
+    public int uploadProductOnServerSide(int user_id, String pName, float pPrice, String pDescription, int pWaiting, int imageId, int groupId, String category, String status) {
         HTTPPost httpPost = new HTTPPost();
-        httpPost.uploadProduct(user_id, pName, pPrice, pDescription, pWaiting, imageId, groupId, category);
+        httpPost.uploadProduct(user_id, pName, pPrice, pDescription, pWaiting, imageId, groupId, category, status);
         return httpPost.getImage_ID();
     }
 

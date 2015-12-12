@@ -86,6 +86,7 @@ public class HTTPPut {
         comment.put("image_id", Integer.toString(p.getImageId()));
         comment.put("group_id", Integer.toString(p.getGroupId()));
         comment.put("category", p.getCategory());
+        comment.put("status", p.getStatus());
 
         //Convert java object to json with external library "gson"
         String json = new GsonBuilder().create().toJson(comment, Map.class);
