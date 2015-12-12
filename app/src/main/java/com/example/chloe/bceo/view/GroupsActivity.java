@@ -121,6 +121,7 @@ public class GroupsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BrowseActivity.class);
         //passing logged in user
         intent.putExtra("user", user);
+        intent.putExtra("visibility", true);
         this.startActivity(intent);
     }
 

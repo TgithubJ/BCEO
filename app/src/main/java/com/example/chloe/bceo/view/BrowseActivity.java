@@ -49,6 +49,7 @@ public class BrowseActivity extends AppCompatActivity {
     Button button_filter;
     String filter_category = "all";
     private User user;
+    private boolean fromGroupPage;
 
     // references to our images
 //    private Integer[] mThumbIds = {
@@ -162,12 +163,16 @@ public class BrowseActivity extends AppCompatActivity {
         //Parse json and get products
         jsonParser(jsonString);
 
-        //Get json
-        urlStr = httpGet.buildURL("all_images");
-        jsonString = httpGet.getResponse(urlStr);
-        Log.d("[Browse Page] -> URL: ", urlStr);
-        Log.d("[Browse Page] -> Json: ", jsonString);
-        jsonParser2(jsonString);
+        fromGroupPage = (boolean) getIntent().getBooleanExtra("visibility", false);
+        if (fromGroupPage) {
+            //Get json
+            urlStr = httpGet.buildURL("all_images");
+            jsonString = httpGet.getResponse(urlStr);
+            Log.d("[Browse Page] -> URL: ", urlStr);
+            Log.d("[Browse Page] -> Json: ", jsonString);
+            jsonParser2(jsonString);
+            fromGroupPage = false;
+        }
 
         updateGridProduct("all");
 
